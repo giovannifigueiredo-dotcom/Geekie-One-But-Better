@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geekie One Portal Ultra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --primary-dark: #00cc6a;
+            --secondary: #ff00ff;
+            --accent: #00d4ff;
+            --bg-primary: #0a0e27;
+            --bg-secondary: #131832;
+            --bg-card: rgba(19, 24, 50, 0.6);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border-color: rgba(0, 255, 136, 0.15);
+            --shadow-glow: 0 0 30px rgba(0, 255, 136, 0.25);
+            --gradient-1: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+            --gradient-2: linear-gradient(135deg, #ff00ff 0%, #ff6b6b 100%);
+            --gradient-bg: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1429 100%);
+        }
+
+        [data-theme="ocean"] {
+            --primary: #0077be; --primary-dark: #005a8c; --secondary: #00d4ff; --accent: #7dd3fc;
+            --bg-primary: #0c1929; --bg-secondary: #132f4c; --bg-card: rgba(19, 47, 76, 0.6);
+            --border-color: rgba(0, 119, 190, 0.2); --shadow-glow: 0 0 30px rgba(0, 119, 190, 0.3);
+            --gradient-1: linear-gradient(135deg, #0077be 0%, #00d4ff 100%);
+            --gradient-2: linear-gradient(135deg, #00d4ff 0%, #7dd3fc 100%);
+            --gradient-bg: linear-gradient(135deg, #0c1929 0%, #132f4c 50%, #0a1628 100%);
+        }
+
+        [data-theme="sunset"] {
+            --primary: #ff6b35; --primary-dark: #e55a2b; --secondary: #f7931e; --accent: #ffd700;
+            --bg-primary: #1a0a0a; --bg-secondary: #2d1515; --bg-card: rgba(45, 21, 21, 0.6);
+            --border-color: rgba(255, 107, 53, 0.2); --shadow-glow: 0 0 30px rgba(255, 107, 53, 0.3);
+            --gradient-1: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            --gradient-2: linear-gradient(135deg, #ffd700 0%, #ff6b35 100%);
+            --gradient-bg: linear-gradient(135deg, #1a0a0a 0%, #2d1515 50%, #150808 100%);
+        }
+
+        [data-theme="forest"] {
+            --primary: #22c55e; --primary-dark: #16a34a; --secondary: #84cc16; --accent: #a3e635;
+            --bg-primary: #0a1a0a; --bg-secondary: #152815; --bg-card: rgba(21, 40, 21, 0.6);
+            --border-color: rgba(34, 197, 94, 0.2); --shadow-glow: 0 0 30px rgba(34, 197, 94, 0.3);
+            --gradient-1: linear-gradient(135deg, #22c55e 0%, #84cc16 100%);
+            --gradient-2: linear-gradient(135deg, #84cc16 0%, #a3e635 100%);
+            --gradient-bg: linear-gradient(135deg, #0a1a0a 0%, #152815 50%, #081208 100%);
+        }
+
+        [data-theme="royal"] {
+            --primary: #a855f7; --primary-dark: #9333ea; --secondary: #ec4899; --accent: #f472b6;
+            --bg-primary: #170a1f; --bg-secondary: #281536; --bg-card: rgba(40, 21, 54, 0.6);
+            --border-color: rgba(168, 85, 247, 0.2); --shadow-glow: 0 0 30px rgba(168, 85, 247, 0.3);
+            --gradient-1: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            --gradient-2: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+            --gradient-bg: linear-gradient(135deg, #170a1f 0%, #281536 50%, #0f0817 100%);
+        }
+
+        [data-theme="midnight"] {
+            --primary: #64748b; --primary-dark: #475569; --secondary: #94a3b8; --accent: #cbd5e1;
+            --bg-primary: #020617; --bg-secondary: #0f172a; --bg-card: rgba(15, 23, 42, 0.8);
+            --border-color: rgba(148, 163, 184, 0.15); --shadow-glow: 0 0 20px rgba(100, 116, 139, 0.2);
+            --gradient-1: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
+            --gradient-2: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%);
+            --gradient-bg: linear-gradient(135deg, #020617 0%, #0f172a 50%, #030712 100%);
+        }
+
+        [data-theme="galaxy"] {
+            --primary: #818cf8; --primary-dark: #6366f1; --secondary: #c084fc; --accent: #f0abfc;
+            --bg-primary: #0c0118; --bg-secondary: #1a0f2e; --bg-card: rgba(26, 15, 46, 0.6);
+            --border-color: rgba(129, 140, 248, 0.2); --shadow-glow: 0 0 30px rgba(129, 140, 248, 0.3);
+            --gradient-1: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+            --gradient-2: linear-gradient(135deg, #c084fc 0%, #f0abfc 100%);
+            --gradient-bg: linear-gradient(135deg, #0c0118 0%, #1a0f2e 50%, #080414 100%);
+        }
+
+        [data-theme="cherry"] {
+            --primary: #fb7185; --primary-dark: #f43f5e; --secondary: #fda4af; --accent: #fecdd3;
+            --bg-primary: #1f0a0f; --bg-secondary: #331521; --bg-card: rgba(51, 21, 33, 0.6);
+            --border-color: rgba(251, 113, 133, 0.2); --shadow-glow: 0 0 30px rgba(251, 113, 133, 0.3);
+            --gradient-1: linear-gradient(135deg, #fb7185 0%, #fda4af 100%);
+            --gradient-2: linear-gradient(135deg, #fda4af 0%, #fecdd3 100%);
+            --gradient-bg: linear-gradient(135deg, #1f0a0f 0%, #331521 50%, #150609 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .floating-orbs {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1; overflow: hidden;
+        }
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px);
+            animation: orbFloat 20s infinite ease-in-out;
+        }
+        .orb-1 { width: 400px; height: 400px; background: var(--primary); opacity: 0.12; top: 10%; left: 10%; animation-delay: 0s; }
+        .orb-2 { width: 350px; height: 350px; background: var(--secondary); opacity: 0.10; bottom: 20%; right: 15%; animation-delay: -7s; }
+        .orb-3 { width: 300px; height: 300px; background: var(--accent); opacity: 0.08; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -14s; }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -30px) scale(1.05); }
+            50% { transform: translate(-30px, 50px) scale(0.95); }
+            75% { transform: translate(-50px, -20px) scale(1.02); }
+        }
+
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
+
+        .container { max-width: 1800px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+
+        /* Header */
+        .top-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 30px; background: var(--bg-card); backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color); border-radius: 20px; margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .logo-icon {
+            width: 50px; height: 50px; background: var(--gradient-1); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; font-size: 26px;
+            box-shadow: var(--shadow-glow); animation: logoPulse 3s ease-in-out infinite;
+        }
+        @keyframes logoPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(var(--primary), 0.4); }
+            50% { box-shadow: 0 0 40px rgba(var(--primary), 0.7); }
+        }
+        .logo-text h1 {
+            font-family: 'Poppins', sans-serif; font-size: 1.6rem; font-weight: 800;
+            background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .logo-text span { font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
+
+        .nav-actions { display: flex; gap: 12px; align-items: center; }
+        .nav-btn {
+            padding: 10px 18px; background: transparent; border: 1px solid var(--border-color);
+            border-radius: 12px; color: var(--text-primary); cursor: pointer;
+            font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .nav-btn:hover {
+            background: var(--primary); color: var(--bg-primary);
+            border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-glow);
+        }
+        .nav-btn.active { background: var(--gradient-1); color: white; border-color: transparent; }
+
+        .toggle-sidebar-btn {
+            padding: 10px 18px; background: var(--gradient-2); border: none; border-radius: 12px;
+            color: white; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 700;
+            font-size: 13px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex; align-items: center; gap: 10px;
+            box-shadow: 0 4px 15px rgba(255, 0, 255, 0.3); position: relative; overflow: hidden;
+        }
+        .toggle-sidebar-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s ease;
+        }
+        .toggle-sidebar-btn:hover::before { left: 100%; }
+        .toggle-sidebar-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 25px rgba(255, 0, 255, 0.5); }
+        .toggle-sidebar-btn.sidebar-closed { background: var(--gradient-1); box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3); }
+        .toggle-icon { transition: transform 0.3s ease; }
+        .toggle-sidebar-btn.sidebar-closed .toggle-icon { transform: rotate(180deg); }
+
+        /* Layout */
+        .main-layout {
+            display: grid; grid-template-columns: 320px 1fr; gap: 25px; margin-bottom: 25px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .main-layout.sidebar-hidden { grid-template-columns: 0px 1fr; gap: 0; }
+        .main-layout.sidebar-hidden .sidebar { opacity: 0; transform: translateX(-100%); pointer-events: none; }
+
+        @media (max-width: 1280px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .main-layout.sidebar-hidden { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .main-layout.sidebar-hidden .sidebar { display: none; }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex; flex-direction: column; gap: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1; transform: translateX(0); overflow: hidden;
+        }
+        .sidebar-card {
+            background: var(--bg-card); backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color); border-radius: 20px; padding: 24px;
+            transition: all 0.4s ease;
+        }
+        .sidebar-card:hover { border-color: var(--primary); box-shadow: var(--shadow-glow); transform: translateX(-5px); }
+        .card-title {
+            font-family: 'Poppins', sans-serif; font-size: 1.15rem; font-weight: 700;
+            margin-bottom: 18px; display: flex; align-items: center; gap: 10px; color: var(--text-primary);
+        }
+        .card-title i { color: var(--primary); font-size: 1.2rem; }
+
+        .theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .theme-option {
+            padding: 14px 10px; background: rgba(255, 255, 255, 0.03); border: 2px solid transparent;
+            border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.3s ease;
+            font-size: 13px; font-weight: 600; color: var(--text-secondary);
+        }
+        .theme-option:hover { background: rgba(255, 255, 255, 0.06); transform: scale(1.03); }
+        .theme-option.active { border-color: var(--primary); background: rgba(var(--primary), 0.1); color: var(--primary); box-shadow: 0 0 20px rgba(var(--primary), 0.2); }
+        .theme-icon { font-size: 24px; margin-bottom: 6px; display: block; }
+
+        .extension-item {
+            display: flex; align-items: center; justify-content: space-between; padding: 14px;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color);
+            border-radius: 12px; margin-bottom: 10px; transition: all 0.3s ease;
+        }
+        .extension-item:hover { background: rgba(255, 255, 255, 0.04); border-color: var(--primary); }
+        .extension-info { display: flex; align-items: center; gap: 12px; }
+        .extension-icon {
+            width: 42px; height: 42px; background: var(--gradient-1); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 18px;
+        }
+        .extension-name { font-weight: 600; font-size: 14px; color: var(--text-primary); }
+        .extension-desc { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+        .toggle-switch { position: relative; width: 50px; height: 26px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.1); transition: 0.4s; border-radius: 26px;
+        }
+        .toggle-slider:before {
+            position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px;
+            background: white; transition: 0.4s; border-radius: 50%;
+        }
+        input:checked + .toggle-slider { background: var(--gradient-1); }
+        input:checked + .toggle-slider:before { transform: translateX(24px); }
+
+        .stats-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .stat-box {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 16px; text-align: center;
+        }
+        .stat-value { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+        .stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Main Content */
+        .content-area { display: flex; flex-direction: column; gap: 20px; transition: all 0.4s ease; }
+
+        .iframe-card {
+            background: var(--bg-card); backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color); border-radius: 24px; overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); transition: all 0.4s ease;
+        }
+        .iframe-card:hover { border-color: var(--primary); box-shadow: var(--shadow-glow), 0 20px 60px rgba(0, 0, 0, 0.3); }
+
+        .iframe-header {
+            background: rgba(0, 0, 0, 0.2); padding: 18px 24px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 15px;
+        }
+        .iframe-controls { display: flex; gap: 10px; align-items: center; }
+        .control-btn {
+            width: 38px; height: 38px; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary);
+            cursor: pointer; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center; font-size: 15px;
+        }
+        .control-btn:hover { background: var(--primary); color: var(--bg-primary); border-color: var(--primary); transform: translateY(-2px); }
+
+        .url-bar {
+            flex: 1; min-width: 250px; max-width: 500px; display: flex; align-items: center;
+            background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 10px 15px; gap: 10px;
+        }
+        .url-bar i { color: var(--primary); font-size: 14px; }
+        .url-bar input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); font-family: 'Fira Code', monospace; font-size: 13px; }
+
+        .view-actions { display: flex; gap: 10px; }
+        .action-btn {
+            padding: 10px 20px; background: var(--gradient-1); border: none; border-radius: 10px;
+            color: white; font-weight: 600; font-size: 13px; cursor: pointer;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 15px rgba(var(--primary), 0.3);
+        }
+        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(var(--primary), 0.4); }
+        .action-btn.secondary { background: rgba(255, 255, 255, 0.08); box-shadow: none; }
+        .action-btn.secondary:hover { background: rgba(255, 255, 255, 0.15); }
+
+        /* Iframe Container */
+        .iframe-container { position: relative; width: 100%; height: 750px; background: #000; }
+        iframe { width: 100%; height: 100%; border: none; background: white; }
+
+        /* Loading State */
+        .loading-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-primary); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 10; transition: opacity 0.5s ease;
+        }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+
+        .loader { width: 80px; height: 80px; position: relative; margin-bottom: 25px; }
+        .loader-ring {
+            position: absolute; width: 100%; height: 100%; border-radius: 50%;
+            border: 4px solid transparent; border-top-color: var(--primary); animation: spin 1s linear infinite;
+        }
+        .loader-ring:nth-child(2) { width: 70%; height: 70%; top: 15%; left: 15%; border-top-color: var(--secondary); animation-duration: 0.8s; animation-direction: reverse; }
+        .loader-ring:nth-child(3) { width: 45%; height: 45%; top: 27.5%; left: 27.5%; border-top-color: var(--accent); animation-duration: 0.6s; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading-text { font-size: 1.2rem; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+        .loading-subtext { font-size: 0.9rem; color: var(--text-secondary); }
+
+        /* Error State - NOVO! */
+        .error-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.98) 0%, rgba(26, 31, 58, 0.98) 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 50px; text-align: center; z-index: 10;
+        }
+        .error-overlay.hidden { display: none; }
+
+        .error-icon { font-size: 90px; margin-bottom: 25px; animation: bounce 2s infinite; }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .error-overlay h3 { font-family: 'Poppins', sans-serif; font-size: 2rem; color: white; margin-bottom: 18px; }
+        .error-overlay p { font-size: 1.1rem; color: var(--text-secondary); max-width: 650px; line-height: 1.7; margin-bottom: 35px; }
+
+        .error-actions { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 450px; }
+        .btn-large { padding: 18px 35px; font-size: 16px; justify-content: center; border-radius: 14px; }
+
+        /* Extensions Dock */
+        .extensions-dock {
+            position: fixed; right: 20px; bottom: 20px;
+            display: flex; flex-direction: column; gap: 12px; z-index: 1000;
+        }
+        .dock-btn {
+            width: 56px; height: 56px; background: var(--bg-card); backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color); border-radius: 16px; color: var(--text-primary);
+            cursor: pointer; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center; font-size: 22px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        .dock-btn:hover { background: var(--gradient-1); transform: translateY(-5px) scale(1.1); box-shadow: var(--shadow-glow); }
+        .dock-btn.active { background: var(--gradient-1); border-color: var(--primary); }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px);
+            z-index: 2000; display: none; justify-content: center; align-items: center; padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 24px; padding: 30px; max-width: 550px; width: 100%; max-height: 80vh;
+            overflow-y: auto; box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.4s ease;
+        }
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+        .modal-title { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 12px; }
+        .modal-close {
+            width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary);
+            cursor: pointer; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center; font-size: 18px;
+        }
+        .modal-close:hover { background: #ef4444; border-color: #ef4444; }
+
+        .notes-area {
+            width: 100%; min-height: 250px; background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color); border-radius: 14px; padding: 18px;
+            color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 14px;
+            line-height: 1.7; resize: vertical; outline: none; transition: all 0.3s ease;
+        }
+        .notes-area:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(var(--primary), 0.15); }
+
+        .timer-display { text-align: center; padding: 40px 20px; background: rgba(0, 0, 0, 0.3); border-radius: 20px; margin-bottom: 25px; }
+        .timer-time { font-family: 'Fira Code', monospace; font-size: 4rem; font-weight: 700; color: var(--primary); letter-spacing: 4px; margin-bottom: 10px; }
+        .timer-label { font-size: 1rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; }
+        .timer-controls { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .timer-btn { padding: 14px 28px; background: var(--gradient-1); border: none; border-radius: 12px; color: white; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease; }
+        .timer-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+        .timer-btn.reset { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
+        .timer-presets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        .preset-btn { padding: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary); font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s ease; }
+        .preset-btn:hover { background: var(--primary); color: var(--bg-primary); border-color: var(--primary); }
+
+        .calc-display { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; margin-bottom: 20px; text-align: right; }
+        .calc-expression { font-family: 'Fira Code', monospace; font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; min-height: 20px; }
+        .calc-result { font-family: 'Fira Code', monospace; font-size: 2.5rem; font-weight: 700; color: var(--primary); }
+        .calc-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .calc-btn { padding: 18px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+        .calc-btn:hover { background: rgba(255, 255, 255, 0.1); transform: scale(1.05); }
+        .calc-btn.operator { background: var(--gradient-1); color: white; }
+        .calc-btn.equals { background: var(--gradient-2); color: white; grid-column: span 2; }
+        .calc-btn.clear { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+        .focus-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.95); z-index: 3000;
+            display: none; justify-content: center; align-items: center; flex-direction: column; padding: 40px;
+        }
+        .focus-overlay.active { display: flex; }
+        .focus-timer { font-family: 'Fira Code', monospace; font-size: 6rem; font-weight: 700; color: var(--primary); margin-bottom: 30px; }
+        .focus-message { font-size: 1.5rem; color: var(--text-secondary); text-align: center; margin-bottom: 40px; }
+        .focus-exit { padding: 16px 40px; background: #ef4444; border: none; border-radius: 12px; color: white; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.3s ease; }
+        .focus-exit:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
+
+        /* Toast */
+        .toast-container { position: fixed; top: 25px; right: 25px; z-index: 9999; display: flex; flex-direction: column; gap: 12px; }
+        .toast {
+            padding: 16px 24px; border-radius: 14px; color: white; font-weight: 600;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            display: flex; align-items: center; gap: 12px; min-width: 300px;
+            animation: toastIn 0.4s ease; backdrop-filter: blur(10px);
+        }
+        .toast.success { background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%); }
+        .toast.error { background: linear-gradient(135deg, rgba(239, 68, 68, 0.95) 0%, rgba(220, 38, 38, 0.95) 100%); }
+        .toast.info { background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(79, 70, 229, 0.95) 100%); }
+        @keyframes toastIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        .footer { text-align: center; padding: 30px; color: var(--text-secondary); font-size: 0.9rem; border-top: 1px solid var(--border-color); margin-top: 30px; }
+        .footer-icons { display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; }
+        .footer-icons a { color: var(--text-secondary); font-size: 1.4rem; transition: all 0.3s ease; }
+        .footer-icons a:hover { color: var(--primary); transform: translateY(-3px); }
+
+        @media (max-width: 1024px) {
+            .top-nav { flex-direction: column; gap: 15px; text-align: center; }
+            .nav-actions { flex-wrap: wrap; justify-content: center; }
+            .iframe-container { height: 550px; }
+            .extensions-dock { right: 10px; bottom: 10px; }
+            .dock-btn { width: 48px; height: 48px; font-size: 18px; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .iframe-header { flex-direction: column; }
+            .url-bar { width: 100%; max-width: 100%; }
+            .view-actions { width: 100%; justify-content: center; }
+            .iframe-container { height: 450px; }
+            .timer-time { font-size: 3rem; }
+            .modal-content { padding: 20px; margin: 10px; }
+        }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body data-theme="default">
+
+    <!-- Background -->
+    <div class="floating-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Navigation -->
+        <nav class="top-nav">
+            <div class="logo-section">
+                <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="logo-text">
+                    <h1>Geekie One</h1>
+                    <span>Portal Ultra • v3.0</span>
+                </div>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="nav-btn active" onclick="showSection('home')">
+                    <i class="fas fa-home"></i> Início
+                </button>
+                
+                <button class="toggle-sidebar-btn" id="toggleSidebarBtn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars toggle-icon" id="toggleIcon"></i>
+                    <span id="toggleText">Fechar Painel</span>
+                </button>
+                
+                <button class="nav-btn" onclick="openFullscreen()">
+                    <i class="fas fa-expand"></i> Tela Cheia
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Layout -->
+        <div class="main-layout" id="mainLayout">
+            
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                
+                <!-- Themes -->
+                <div class="sidebar-card">
+                    <h3 class="card-title"><i class="fas fa-swatchbook"></i> Temas Exclusivos</h3>
+                    <div class="theme-grid">
+                        <div class="theme-option active" data-theme="default" onclick="changeTheme(this)">
+                            <span class="theme-icon">🌿</span> Cyberpunk
+                        </div>
+                        <div class="theme-option" data-theme="ocean" onclick="changeTheme(this)">
+                            <span class="theme-icon">🌊</span> Ocean
+                        </div>
+                        <div class="theme-option" data-theme="sunset" onclick="changeTheme(this)">
+                            <span class="theme-icon">🌅</span> Sunset
+                        </div>
+                        <div class="theme-option" data-theme="forest" onclick="changeTheme(this)">
+                            <span class="theme-icon">🌲</span> Forest
+                        </div>
+                        <div class="theme-option" data-theme="royal" onclick="changeTheme(this)">
+                            <span class="theme-icon">👑</span> Royal
+                        </div>
+                        <div class="theme-option" data-theme="midnight" onclick="changeTheme(this)">
+                            <span class="theme-icon">🌙</span> Midnight
+                        </div>
+                        <div class="theme-option" data-theme="galaxy" onclick="changeTheme(this)">
+                            <span class="theme-icon">🌌</span> Galaxy
+                        </div>
+                        <div class="theme-option" data-theme="cherry" onclick="changeTheme(this)">
+                            <span class="theme-icon">🌸</span> Cherry
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extensions -->
+                <div class="sidebar-card">
+                    <h3 class="card-title"><i class="fas fa-plug"></i> Extensões Ativas</h3>
+                    
+                    <div class="extension-item">
+                        <div class="extension-info">
+                            <div class="extension-icon"><i class="fas fa-sticky-note"></i></div>
+                            <div><div class="extension-name">Notas Rápidas</div><div class="extension-desc">Anotações durante estudos</div></div>
+                        </div>
+                        <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+
+                    <div class="extension-item">
+                        <div class="extension-info">
+                            <div class="extension-icon"><i class="fas fa-clock"></i></div>
+                            <div><div class="extension-name">Pomodoro Timer</div><div class="extension-desc">Técnica de foco 25+5</div></div>
+                        </div>
+                        <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+
+                    <div class="extension-item">
+                        <div class="extension-info">
+                            <div class="extension-icon"><i class="fas fa-calculator"></i></div>
+                            <div><div class="extension-name">Calculadora</div><div class="extension-desc">Cálculos rápidos</div></div>
+                        </div>
+                        <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+
+                    <div class="extension-item">
+                        <div class="extension-info">
+                            <div class="extension-icon"><i class="fas fa-crosshairs"></i></div>
+                            <div><div class="extension-name">Modo Foco</div><div class="extension-desc">Tela cheia sem distrações</div></div>
+                        </div>
+                        <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="sidebar-card">
+                    <h3 class="card-title"><i class="fas fa-chart-line"></i> Estatísticas</h3>
+                    <div class="stats-mini">
+                        <div class="stat-box"><div class="stat-value">8</div><div class="stat-label">Temas</div></div>
+                        <div class="stat-box"><div class="stat-value">4</div><div class="stat-label">Extensões</div></div>
+                        <div class="stat-box"><div class="stat-value" id="stat-sessions">0</div><div class="stat-label">Sessões</div></div>
+                        <div class="stat-box"><div class="stat-value" id="stat-hours">0h</div><div class="stat-label">Estudo</div></div>
+                    </div>
+                </div>
+
+            </aside>
+
+            <!-- Main Content -->
+            <main class="content-area">
+                
+                <!-- Iframe Card -->
+                <div class="iframe-card">
+                    <div class="iframe-header">
+                        <div class="iframe-controls">
+                            <button class="control-btn" onclick="goBack()" title="Voltar"><i class="fas fa-arrow-left"></i></button>
+                            <button class="control-btn" onclick="goForward()" title="Avançar"><i class="fas fa-arrow-right"></i></button>
+                            <button class="control-btn" onclick="refreshIframe()" title="Atualizar"><i class="fas fa-redo"></i></button>
+                            
+                            <div class="url-bar">
+                                <i class="fas fa-lock"></i>
+                                <input type="text" id="urlInput" value="https://one.geekie.com.br/" readonly>
+                            </div>
+                        </div>
+
+                        <div class="view-actions">
+                            <button class="action-btn secondary" onclick="openInNewTab()">
+                                <i class="fas fa-external-link-alt"></i> Nova Aba
+                            </button>
+                            <button class="action-btn" onclick="tryAlternativeVersion()">
+                                <i class="fas fa-exchange-alt"></i> Versão Alt.
+                            </button>
+                            <button class="action-btn" onclick="openFullscreen()">
+                                <i class="fas fa-expand-arrows-alt"></i> Tela Cheia
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="iframe-container">
+                        
+                        <!-- Loading Overlay -->
+                        <div class="loading-overlay" id="loadingOverlay">
+                            <div class="loader">
+                                <div class="loader-ring"></div>
+                                <div class="loader-ring"></div>
+                                <div class="loader-ring"></div>
+                            </div>
+                            <div class="loading-text" id="loadingText">Carregando Geekie One...</div>
+                            <div class="loading-subtext" id="loadingSubtext">Preparando sua experiência de estudos</div>
+                        </div>
+
+                        <!-- Error Overlay - NOVO! -->
+                        <div class="error-overlay hidden" id="errorOverlay">
+                            <div class="error-icon">🔒</div>
+                            <h3>Proteção de Segurança Detectada</h3>
+                            <p>
+                                O <strong>Geekie One</strong> possui proteções de segurança avançadas 
+                                (X-Frame-Options) que impedem a exibição direta em iframe. 
+                                Isso é uma medida de segurança para proteger seus dados!
+                            </p>
+                            <div class="error-actions">
+                                <button class="action-btn btn-large" onclick="openInNewTab()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                                    <i class="fas fa-external-link-alt"></i> Abrir em Nova Aba (Recomendado)
+                                </button>
+                                <button class="action-btn btn-large secondary" onclick="tryAlternativeVersion()">
+                                    <i class="fas fa-exchange-alt"></i> Tentar Versão Alternativa
+                                </button>
+                                <button class="action-btn btn-large" onclick="showErrorInfo()" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+                                    <i class="fas fa-info-circle"></i> Saiba Mais
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Iframe -->
+                        <iframe 
+                            id="geekieFrame"
+                            src=""
+                            title="Geekie One"
+                            allowfullscreen
+                            sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-presentation"
+                            onload="onIframeLoad()"
+                            onerror="onIframeError()"
+                        ></iframe>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-icons">
+                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>© 2024 Geekie One Portal Ultra</p>
+            <p style="margin-top: 8px; font-size: 0.85rem;">
+                Desenvolvido com <i class="fas fa-heart" style="color: #ef4444;"></i> para a comunidade educacional
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Extensions Dock -->
+    <div class="extensions-dock">
+        <button class="dock-btn" onclick="openModal('notes')" title="Notas"><i class="fas fa-sticky-note"></i></button>
+        <button class="dock-btn" onclick="openModal('timer')" title="Timer Pomodoro"><i class="fas fa-clock"></i></button>
+        <button class="dock-btn" onclick="openModal('calculator')" title="Calculadora"><i class="fas fa-calculator"></i></button>
+        <button class="dock-btn" onclick="startFocusMode()" title="Modo Foco"><i class="fas fa-crosshairs"></i></button>
+    </div>
+
+    <!-- Notes Modal -->
+    <div class="modal-overlay" id="notesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fas fa-sticky-note"></i> Notas Rápidas</h2>
+                <button class="modal-close" onclick="closeModal('notes')"><i class="fas fa-times"></i></button>
+            </div>
+            <textarea class="notes-area" id="notesArea" placeholder="Escreva suas anotações aqui... 📝
+
+Dicas:
+• Use para resumir conteúdos do Geekie One
+• Anote dúvidas para pesquisar depois
+• Crie listas de tarefas de estudo
+
+Suas notas são salvas automaticamente! 💾"></textarea>
+            <div style="margin-top: 15px; display: flex; gap: 10px;">
+                <button class="action-btn" onclick="saveNotes()" style="flex: 1;"><i class="fas fa-save"></i> Salvar Notas</button>
+                <button class="action-btn secondary" onclick="clearNotes()" style="flex: 1;"><i class="fas fa-trash"></i> Limpar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timer Modal -->
+    <div class="modal-overlay" id="timerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fas fa-clock"></i> Pomodoro Timer</h2>
+                <button class="modal-close" onclick="closeModal('timer')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="timer-display">
+                <div class="timer-time" id="timerDisplay">25:00</div>
+                <div class="timer-label" id="timerLabel">Foco</div>
+            </div>
+            <div class="timer-controls">
+                <button class="timer-btn" id="timerStartBtn" onclick="toggleTimer()"><i class="fas fa-play"></i> Iniciar</button>
+                <button class="timer-btn reset" onclick="resetTimer()"><i class="fas fa-redo"></i> Resetar</button>
+            </div>
+            <div class="timer-presets">
+                <button class="preset-btn" onclick="setTimer(25)">25 min</button>
+                <button class="preset-btn" onclick="setTimer(15)">15 min</button>
+                <button class="preset-btn" onclick="setTimer(5)">5 min</button>
+                <button class="preset-btn" onclick="setTimer(45)">45 min</button>
+                <button class="preset-btn" onclick="setTimer(60)">1 hora</button>
+                <button class="preset-btn" onclick="setTimer(90)">1.5h</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculator Modal -->
+    <div class="modal-overlay" id="calculatorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fas fa-calculator"></i> Calculadora</h2>
+                <button class="modal-close" onclick="closeModal('calculator')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="calc-display">
+                <div class="calc-expression" id="calcExpression"></div>
+                <div class="calc-result" id="calcResult">0</div>
+            </div>
+            <div class="calc-buttons">
+                <button class="calc-btn clear" onclick="calcClear()">C</button>
+                <button class="calc-btn operator" onclick="calcInput('(')">(</button>
+                <button class="calc-btn operator" onclick="calcInput(')')">)</button>
+                <button class="calc-btn operator" onclick="calcInput('/')">÷</button>
+                <button class="calc-btn" onclick="calcInput('7')">7</button>
+                <button class="calc-btn" onclick="calcInput('8')">8</button>
+                <button class="calc-btn" onclick="calcInput('9')">9</button>
+                <button class="calc-btn operator" onclick="calcInput('*')">×</button>
+                <button class="calc-btn" onclick="calcInput('4')">4</button>
+                <button class="calc-btn" onclick="calcInput('5')">5</button>
+                <button class="calc-btn" onclick="calcInput('6')">6</button>
+                <button class="calc-btn operator" onclick="calcInput('-')">−</button>
+                <button class="calc-btn" onclick="calcInput('1')">1</button>
+                <button class="calc-btn" onclick="calcInput('2')">2</button>
+                <button class="calc-btn" onclick="calcInput('3')">3</button>
+                <button class="calc-btn operator" onclick="calcInput('+')">+</button>
+                <button class="calc-btn" onclick="calcInput('0')">0</button>
+                <button class="calc-btn" onclick="calcInput('.')">.</button>
+                <button class="calc-btn equals" onclick="calculate()">=</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Focus Mode Overlay -->
+    <div class="focus-overlay" id="focusOverlay">
+        <div class="focus-timer" id="focusTimer">25:00</div>
+        <div class="focus-message" id="focusMessage">🎯 Modo Foco Ativado!<br>Concentre-se nos seus estudos. Você consegue!</div>
+        <button class="focus-exit" onclick="exitFocusMode()"><i class="fas fa-times"></i> Sair do Modo Foco</button>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURATION & STATE
+        // ============================================
+        const GEEKIE_NORMAL_URL = 'https://one.geekie.com.br/';
+        const GEEKIE_PLUS_URL = 'https://dx1website.pages.dev/resumao/geekieoneplus/';
+        
+        let state = {
+            theme: 'default',
+            sidebarOpen: true,
+            currentUrl: GEEKIE_NORMAL_URL,
+            usingAlternative: false,
+            notes: localStorage.getItem('geekieNotes') || '',
+            timer: {
+                minutes: 25, seconds: 0, isRunning: false, interval: null,
+                totalSessions: parseInt(localStorage.getItem('geekieSessions')) || 0,
+                totalMinutes: parseInt(localStorage.getItem('geekieMinutes')) || 0
+            },
+            calc: { expression: '', result: '0' },
+            focusMode: false,
+            loadAttempts: 0
+        };
+
+        // DOM Elements
+        const iframe = document.getElementById('geekieFrame');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const errorOverlay = document.getElementById('errorOverlay');
+        const urlInput = document.getElementById('urlInput');
+        const mainLayout = document.getElementById('mainLayout');
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
+        const toggleIcon = document.getElementById('toggleIcon');
+        const toggleText = document.getElementById('toggleText');
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        console.log('%c🎓 Geekie One Portal ULTRA v3.0', 'font-size: 28px; font-weight: bold; color: #00ff88;');
+        console.log('%cPortal Inteligente Carregado!', 'font-size: 14px; color: #00d4ff;');
+        
+        document.getElementById('notesArea').value = state.notes;
+        updateStats();
+
+        // Auto-start loading process
+        setTimeout(() => {
+            startLoadingProcess();
+        }, 500);
+
+        // ============================================
+        // INTELLIGENT LOADING SYSTEM
+        // ============================================
+        function startLoadingProcess() {
+            console.log('🚀 Iniciando processo de carga...');
+            
+            // Show loading
+            loadingOverlay.classList.remove('hidden');
+            errorOverlay.classList.add('hidden');
+            
+            // Update UI
+            updateLoadingText('Conectando ao Geekie One...', 'Tentando carregar o site oficial');
+            
+            // Try to load the NORMAL version first
+            state.currentUrl = GEEKIE_NORMAL_URL;
+            state.usingAlternative = false;
+            urlInput.value = GEEKIE_NORMAL_URL;
+            
+            // Set iframe source
+            iframe.src = GEEKIE_NORMAL_URL;
+            
+            // Set timeout to detect if it's stuck
+            state.loadAttempts++;
+            
+            // After 8 seconds, check if loaded
+            setTimeout(() => {
+                checkIfLoaded();
+            }, 8000);
+        }
+
+        function checkIfLoaded() {
+            // Check if still showing loading (means it didn't load properly)
+            if (!loadingOverlay.classList.contains('hidden')) {
+                console.log('⚠️ Timeout detectado! O site pode estar bloqueado.');
+                
+                // Show error screen with options
+                showErrorScreen();
+            } else {
+                console.log('✅ Site carregado com sucesso!');
+            }
+        }
+
+        function showErrorScreen() {
+            loadingOverlay.classList.add('hidden');
+            errorOverlay.classList.remove('hidden');
+            
+            showToast('O site não pode ser carregado no iframe. Veja as opções!', 'warning');
+        }
+
+        function onIframeLoad() {
+            console.log('📄 Evento onLoad disparado');
+            
+            // Hide loading after short delay
+            setTimeout(() => {
+                if (!errorOverlay.classList.contains('hidden')) return; // Don't hide if error is showing
+                
+                loadingOverlay.classList.add('hidden');
+                showToast(state.usingAlternative ? 'Versão alternativa carregada!' : 'Geekie One carregado!', 'success');
+            }, 1000);
+        }
+
+        function onIframeError() {
+            console.log('❌ Evento onerror disparado');
+            showErrorScreen();
+        }
+
+        function updateLoadingText(main, sub) {
+            document.getElementById('loadingText').textContent = main;
+            document.getElementById('loadingSubtext').textContent = sub;
+        }
+
+        // ============================================
+        // ALTERNATIVE VERSION SYSTEM
+        // ============================================
+        function tryAlternativeVersion() {
+            console.log('🔄 Tentando versão alternativa...');
+            
+            // Switch to PLUS version
+            state.currentUrl = GEEKIE_PLUS_URL;
+            state.usingAlternative = true;
+            
+            // Update URL bar
+            urlInput.value = GEEKIE_PLUS_URL;
+            
+            // Show loading again
+            loadingOverlay.classList.remove('hidden');
+            errorOverlay.classList.add('hidden');
+            
+            updateLoadingText('Carregando Versão Alternativa...', 'Geekie One Plus (modificado)');
+            
+            // Load alternative
+            iframe.src = GEEKIE_PLUS_URL;
+            
+            showToast('Carregando versão alternativa...', 'info');
+            
+            // Check again after timeout
+            setTimeout(() => {
+                if (!loadingOverlay.classList.contains('hidden')) {
+                    // Alternative also failed, just show error with open tab option
+                    loadingOverlay.classList.add('hidden');
+                    errorOverlay.classList.remove('hidden');
+                    
+                    // Update error message for alternative
+                    document.querySelector('#errorOverlay p').innerHTML = `
+                        Ambas as versões não puderam ser carregadas no iframe devido a 
+                        restrições de segurança do navegador. <strong>A melhor opção 
+                        é abrir em uma nova aba!</strong>
+                    `;
+                }
+            }, 8000);
+        }
+
+        function showNormalVersion() {
+            console.log('🔙 Voltando para versão normal...');
+            
+            state.currentUrl = GEEKIE_NORMAL_URL;
+            state.usingAlternative = false;
+            
+            urlInput.value = GEEKIE_NORMAL_URL;
+            
+            loadingOverlay.classList.remove('hidden');
+            errorOverlay.classList.add('hidden');
+            
+            updateLoadingText('Carregando Geekie One Normal...', 'Versão oficial');
+            
+            iframe.src = GEEKIE_NORMAL_URL;
+            
+            setTimeout(() => {
+                checkIfLoaded();
+            }, 8000);
+        }
+
+        function showErrorInfo() {
+            alert(`📋 INFORMAÇÕES TÉCNICAS:
+
+❌ Por que não carrega?
+O site one.geekie.com.br usa X-Frame-Options e 
+Content-Security-Policy que bloqueiam iframes.
+
+✅ Solução recomendada:
+Clique em "Abrir em Nova Aba" para acesso completo!
+
+🔄 Alternativa:
+Use a "Versão Alternativa" (Geekie One Plus) 
+que pode funcionar em alguns navegadores.
+
+💡 Dica:
+As proteções existem por sua SEGURANÇA!
+Elas evitam ataques de phishing.`);
+        }
+
+        // ============================================
+        // SIDEBAR TOGGLE
+        // ============================================
+        function toggleSidebar() {
+            state.sidebarOpen = !state.sidebarOpen;
+            
+            if (state.sidebarOpen) {
+                mainLayout.classList.remove('sidebar-hidden');
+                toggleSidebarBtn.classList.remove('sidebar-closed');
+                toggleIcon.classList.remove('fa-times');
+                toggleIcon.classList.add('fa-bars');
+                toggleText.textContent = 'Fechar Painel';
+                showToast('Painel lateral aberto!', 'info');
+            } else {
+                mainLayout.classList.add('sidebar-hidden');
+                toggleSidebarBtn.classList.add('sidebar-closed');
+                toggleIcon.classList.remove('fa-bars');
+                toggleIcon.classList.add('fa-times');
+                toggleText.textContent = 'Abrir Painel';
+                showToast('Painel lateral fechado!', 'success');
+            }
+            
+            localStorage.setItem('sidebarOpen', state.sidebarOpen);
+        }
+
+        // ============================================
+        // IFRAME CONTROLS
+        // ============================================
+        function refreshIframe() {
+            loadingOverlay.classList.remove('hidden');
+            errorOverlay.classList.add('hidden');
+            iframe.src = iframe.src;
+            showToast('Atualizando...', 'info');
+        }
+
+        function openInNewTab() {
+            window.open(state.currentUrl, '_blank');
+            showToast(`Abrindo ${state.usingAlternative ? 'versão alternativa' : 'Geekie One'} em nova aba!`, 'success');
+        }
+
+        function openFullscreen() {
+            const container = document.querySelector('.iframe-container');
+            if (container.requestFullscreen) container.requestFullscreen();
+            else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
+            showToast('Modo tela cheia ativado!', 'info');
+        }
+
+        function goBack() {
+            try { iframe.contentWindow.history.back(); } catch(e) { showToast('Não é possível voltar', 'error'); }
+        }
+
+        function goForward() {
+            try { iframe.contentWindow.history.forward(); } catch(e) { showToast('Não é possível avançar', 'error'); }
+        }
+
+        // ============================================
+        // THEME SYSTEM
+        // ============================================
+        function changeTheme(element) {
+            const theme = element.dataset.theme;
+            document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
+            element.classList.add('active');
+            document.body.setAttribute('data-theme', theme);
+            state.theme = theme;
+            localStorage.setItem('selectedTheme', theme);
+            showToast(`Tema "${element.textContent.trim()}" ativado!`, 'success');
+        }
+
+        // ============================================
+        // MODAL SYSTEM
+        // ============================================
+        function openModal(type) {
+            document.getElementById(`${type}Modal`).classList.add('active');
+            showToast(`Abrindo ${type === 'notes' ? 'Notas' : type === 'timer' ? 'Timer' : 'Calculadora'}...`, 'info');
+        }
+
+        function closeModal(type) {
+            document.getElementById(`${type}Modal`).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.remove('active');
+            });
+        });
+
+        // ============================================
+        // EXTENSIONS
+        // ============================================
+        function saveNotes() {
+            state.notes = document.getElementById('notesArea').value;
+            localStorage.setItem('geekieNotes', state.notes);
+            showToast('Notas salvas! 💾', 'success');
+        }
+
+        function clearNotes() {
+            if (confirm('Limpar todas as notas?')) {
+                document.getElementById('notesArea').value = '';
+                state.notes = '';
+                localStorage.setItem('geekieNotes', '');
+                showToast('Notas limpas!', 'info');
+            }
+        }
+
+        setInterval(() => {
+            const notes = document.getElementById('notesArea').value;
+            if (notes !== state.notes) saveNotes();
+        }, 30000);
+
+        function toggleTimer() {
+            const btn = document.getElementById('timerStartBtn');
+            if (state.timer.isRunning) {
+                clearInterval(state.timer.interval);
+                state.timer.isRunning = false;
+                btn.innerHTML = '<i class="fas fa-play"></i> Continuar';
+                showToast('Timer pausado', 'info');
+            } else {
+                state.timer.isRunning = true;
+                btn.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+                showToast('Timer iniciado! 🎯', 'success');
+                state.timer.interval = setInterval(() => {
+                    if (state.timer.seconds > 0) state.timer.seconds--;
+                    else if (state.timer.minutes > 0) { state.timer.minutes--; state.timer.seconds = 59; }
+                    else {
+                        clearInterval(state.timer.interval);
+                        state.timer.isRunning = false;
+                        btn.innerHTML = '<i class="fas fa-play"></i> Iniciar';
+                        state.timer.totalSessions++;
+                        state.timer.totalMinutes += 25;
+                        localStorage.setItem('geekieSessions', state.timer.totalSessions);
+                        localStorage.setItem('geekieMinutes', state.timer.totalMinutes);
+                        updateStats();
+                        showToast('⏰ Tempo esgotado!', 'success');
+                        try {
+                            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                            const osc = ctx.createOscillator();
+                            const gain = ctx.createGain();
+                            osc.connect(gain); gain.connect(ctx.destination);
+                            osc.frequency.value = 800; gain.gain.value = 0.3;
+                            osc.start(); setTimeout(() => osc.stop(), 500);
+                        } catch(e) {}
+                    }
+                    updateTimerDisplay();
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(state.timer.interval);
+            state.timer.isRunning = false;
+            state.timer.minutes = 25; state.timer.seconds = 0;
+            document.getElementById('timerStartBtn').innerHTML = '<i class="fas fa-play"></i> Iniciar';
+            updateTimerDisplay();
+            showToast('Timer resetado!', 'info');
+        }
+
+        function setTimer(mins) {
+            clearInterval(state.timer.interval);
+            state.timer.isRunning = false;
+            state.timer.minutes = mins; state.timer.seconds = 0;
+            document.getElementById('timerStartBtn').innerHTML = '<i class="fas fa-play"></i> Iniciar';
+            updateTimerDisplay();
+            showToast(`Timer: ${mins} minutos`, 'info');
+        }
+
+        function updateTimerDisplay() {
+            const m = String(state.timer.minutes).padStart(2, '0');
+            const s = String(state.timer.seconds).padStart(2, '0');
+            document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+            document.getElementById('focusTimer').textContent = `${m}:${s}`;
+        }
+
+        function calcInput(v) { state.calc.expression += v; document.getElementById('calcExpression').textContent = state.calc.expression; }
+        function calcClear() { state.calc.expression = ''; state.calc.result = '0'; document.getElementById('calcExpression').textContent = ''; document.getElementById('calcResult').textContent = '0'; }
+        function calculate() {
+            try {
+                const r = Function('"use strict"; return (' + state.calc.expression + ')')();
+                state.calc.result = Number(r.toFixed(8)).toString();
+                document.getElementById('calcResult').textContent = state.calc.result;
+                showToast(`= ${state.calc.result}`, 'success');
+            } catch(e) {
+                document.getElementById('calcResult').textContent = 'Erro';
+                showToast('Expressão inválida!', 'error');
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('calculatorModal').classList.contains('active')) {
+                if (/[0-9+\-*/().]/.test(e.key)) calcInput(e.key);
+                else if (e.key === 'Enter') calculate();
+                else if (e.key === 'Escape') calcClear();
+            }
+        });
+
+        let focusInterval;
+        function startFocusMode() {
+            state.focusMode = true;
+            document.getElementById('focusOverlay').classList.add('active');
+            let mins = state.timer.minutes, secs = state.timer.seconds;
+            focusInterval = setInterval(() => {
+                if (secs > 0) secs--;
+                else if (mins > 0) { mins--; secs = 59; }
+                else { exitFocusMode(); showToast('⏰ Sessão concluída!', 'success'); return; }
+                document.getElementById('focusTimer').textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+            }, 1000);
+            showToast('🎯 MODO FOCO!', 'success');
+        }
+
+        function exitFocusMode() {
+            state.focusMode = false;
+            document.getElementById('focusOverlay').classList.remove('active');
+            clearInterval(focusInterval);
+        }
+
+        // ============================================
+        // TOAST NOTIFICATIONS
+        // ============================================
+        function showToast(msg, type = 'info') {
+            const c = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = `toast ${type}`;
+            t.innerHTML = `<span>${{success:'✅',error:'❌',info:'ℹ️',warning:'⚠️'}[type]||msg}</span> ${msg}`;
+            c.appendChild(t);
+            setTimeout(() => { t.style.animation = 'fadeOut 0.4s forwards'; setTimeout(() => t.remove(), 400); }, 3500);
+        }
+
+        const s = document.createElement('style');
+        s.textContent = '@keyframes fadeOut { to { opacity: 0; transform: translateX(100%); } }';
+        document.head.appendChild(s);
+
+        // Fix toast HTML
+        const originalShowToast = showToast;
+        showToast = function(msg, type = 'info') {
+            const c = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = `toast ${type}`;
+            const icons = {success:'✅',error:'❌',info:'ℹ️',warning:'⚠️'};
+            t.innerHTML = `<span>${icons[type]}</span> ${msg}`;
+            c.appendChild(t);
+            setTimeout(() => { t.style.animation = 'fadeOut 0.4s forwards'; setTimeout(() => t.remove(), 400); }, 3500);
+        };
+
+        function updateStats() {
+            document.getElementById('stat-sessions').textContent = state.timer.totalSessions;
+            const h = Math.floor(state.timer.totalMinutes / 60);
+            const m = state.timer.totalMinutes % 60;
+            document.getElementById('stat-hours').textContent = h > 0 ? `${h}h${m}m` : `${m}m`;
+        }
+
+        function showSection(section) {
+            document.querySelectorAll('.nav-btn:not(.toggle-sidebar-btn)').forEach(b => b.classList.remove('active'));
+            if (event.target.closest('.nav-btn')) event.target.closest('.nav-btn').classList.add('active');
+        }
+
+        // ============================================
+        // KEYBOARD SHORTCUTS
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'b') { e.preventDefault(); toggleSidebar(); }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); openModal('notes'); }
+            if ((e.ctrlKey || e.metaKey) && e.key === 't') { e.preventDefault(); openModal('timer'); }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'c' && !e.target.matches('input,textarea')) { e.preventDefault; openModal('calculator'); }
+            if (e.key === 'Escape') { document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active')); if (state.focusMode) exitFocusMode(); }
+            if (e.key === 'F11') { e.preventDefault(); openFullscreen(); }
+        });
+
+        // Easter egg
+        let kc = []; const ks = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+        document.addEventListener('keydown', (e) => {
+            kc.push(e.key); kc = kc.slice(-10);
+            if (kc.join(',') === ks.join(',')) {
+                document.body.style.animation = 'rainbow 3s linear infinite';
+                showToast('🎮 MODO ARCO-ÍRIS!', 'success');
+                const rs = document.createElement('style');
+                rs.id='rm'; rs.textContent='@keyframes rainbow{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}';
+                if (!document.getElementById('rm')) document.head.appendChild(rs);
+                setTimeout(() => { document.body.style.animation=''; const el=document.getElementById('rm'); if(el)el.remove(); }, 5000);
+            }
+        });
+
+        console.log(`
+%c╔══════════════════════════════════════╗
+║  🎓 GEEKIE ONE PORTAL ULTRA v3.0     ║
+║     Sistema Inteligente              ║
+╠══════════════════════════════════════╣
+║  ✅ Detecção automática de erros     ║
+║  ✅ Versão Normal + Alternativa      ║
+║  ✅ Fallback inteligente             ║
+║  ✅ Abrir em nova aba (sempre OK!)   ║
+╠══════════════════════════════════════╣
+║  Se não carregar:                   ║
+║  1. Clique "Nova Aba" ✅           ║
+║  2. Ou "Versão Alt." 🔄             ║
+╚══════════════════════════════════════╝
+        `, 'color: #00ff88; font-family: monospace;');
+
+    </script>
+</body>
+</html>
