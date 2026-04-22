@@ -775,6 +775,9 @@
                 <i class="fas fa-bell"></i> <span>Notificações</span>
                 <span class="tab-badge" id="notifBadge">3</span>
             </button>
+            <button class="tab-button" data-tab="special-chars" onclick="switchTab('special-chars')">
+                <i class="fas fa-font"></i> <span>Caracteres Especiais</span>
+            </button>
         </nav>
 
         <!-- ==================== TAB: HOME ==================== -->
@@ -981,9 +984,12 @@
 • Crie listas de tarefas
 
 ⭐ Salve para ganhar XP!"></textarea>
-                    <div style="margin-top: 12px; display: flex; gap: 10px;">
-                        <button class="action-btn" onclick="saveNotes()" style="flex: 1;"><i class="fas fa-save"></i> Salvar (+5 XP)</button>
-                        <button class="action-btn secondary" onclick="clearNotes()" style="flex: 1;"><i class="fas fa-trash"></i> Limpar</button>
+                    <div style="margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="action-btn" onclick="saveNotes()" style="flex: 1; min-width: 120px;"><i class="fas fa-save"></i> Salvar (+5 XP)</button>
+                        <button class="action-btn secondary" onclick="clearNotes()" style="flex: 1; min-width: 120px;"><i class="fas fa-trash"></i> Limpar</button>
+                        <button class="action-btn secondary" onclick="exportNotes()" style="flex: 1; min-width: 120px;"><i class="fas fa-file-export"></i> Exportar</button>
+                        <button class="action-btn secondary" onclick="document.getElementById('importNotesInput').click()" style="flex: 1; min-width: 120px;"><i class="fas fa-file-import"></i> Importar</button>
+                        <input type="file" id="importNotesInput" style="display: none;" accept=".txt" onchange="importNotes(event)">
                     </div>
                 </div>
 
@@ -1073,6 +1079,111 @@
             <div class="achievements-grid" id="achievementsGrid">
                 <!-- Achievements by JS -->
             </div>
+        </section>
+
+        <!-- ==================== TAB: SPECIAL CHARACTERS ==================== -->
+        <section class="tab-content" id="tab-special-chars">
+            <h2 style="font-family: 'Orbitron'; font-size: 1.8rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px;">
+                <i class="fas fa-font" style="color: var(--primary);"></i> Caracteres Especiais
+            </h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Clique em um caractere para copiá-lo para a área de transferência.</p>
+            
+            <div class="special-chars-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px;">
+                <!-- Mathematical -->
+                <button class="char-btn" onclick="copyChar('±')" title="Mais ou menos">±</button>
+                <button class="char-btn" onclick="copyChar('×')" title="Multiplicação">×</button>
+                <button class="char-btn" onclick="copyChar('÷')" title="Divisão">÷</button>
+                <button class="char-btn" onclick="copyChar('≈')" title="Aproximadamente">≈</button>
+                <button class="char-btn" onclick="copyChar('≠')" title="Diferente">≠</button>
+                <button class="char-btn" onclick="copyChar('≤')" title="Menor ou igual">≤</button>
+                <button class="char-btn" onclick="copyChar('≥')" title="Maior ou igual">≥</button>
+                <button class="char-btn" onclick="copyChar('∞')" title="Infinito">∞</button>
+                <button class="char-btn" onclick="copyChar('√')" title="Raiz quadrada">√</button>
+                <button class="char-btn" onclick="copyChar('∛')" title="Raiz cúbica">∛</button>
+                <button class="char-btn" onclick="copyChar('∑')" title="Somatório">∑</button>
+                <button class="char-btn" onclick="copyChar('∫')" title="Integral">∫</button>
+                <button class="char-btn" onclick="copyChar('π')" title="Pi">π</button>
+                <button class="char-btn" onclick="copyChar('∆')" title="Delta">∆</button>
+                <button class="char-btn" onclick="copyChar('∇')" title="Nabla">∇</button>
+                <button class="char-btn" onclick="copyChar('∈')" title="Pertence">∈</button>
+                <button class="char-btn" onclick="copyChar('∉')" title="Não pertence">∉</button>
+                <button class="char-btn" onclick="copyChar('⊂')" title="Contido">⊂</button>
+                <button class="char-btn" onclick="copyChar('⊄')" title="Não contido">⊄</button>
+                <button class="char-btn" onclick="copyChar('∪')" title="União">∪</button>
+                <button class="char-btn" onclick="copyChar('∩')" title="Interseção">∩</button>
+                <button class="char-btn" onclick="copyChar('∅')" title="Conjunto vazio">∅</button>
+                <button class="char-btn" onclick="copyChar('∀')" title="Para todo">∀</button>
+                <button class="char-btn" onclick="copyChar('∃')" title="Existe">∃</button>
+                <button class="char-btn" onclick="copyChar('∄')" title="Não existe">∄</button>
+                <button class="char-btn" onclick="copyChar('∴')" title="Portanto">∴</button>
+                <button class="char-btn" onclick="copyChar('∵')" title="Porque">∵</button>
+                <button class="char-btn" onclick="copyChar('∝')" title="Proporcional">∝</button>
+                <button class="char-btn" onclick="copyChar('∠')" title="Ângulo">∠</button>
+                <button class="char-btn" onclick="copyChar('⊥')" title="Perpendicular">⊥</button>
+                <button class="char-btn" onclick="copyChar('∥')" title="Paralelo">∥</button>
+                <button class="char-btn" onclick="copyChar('°')" title="Grau">°</button>
+                <button class="char-btn" onclick="copyChar('′')" title="Minuto">′</button>
+                <button class="char-btn" onclick="copyChar('″')" title="Segundo">″</button>
+                
+                <!-- Greek Letters -->
+                <button class="char-btn" onclick="copyChar('α')" title="Alpha">α</button>
+                <button class="char-btn" onclick="copyChar('β')" title="Beta">β</button>
+                <button class="char-btn" onclick="copyChar('γ')" title="Gamma">γ</button>
+                <button class="char-btn" onclick="copyChar('δ')" title="Delta">δ</button>
+                <button class="char-btn" onclick="copyChar('ε')" title="Epsilon">ε</button>
+                <button class="char-btn" onclick="copyChar('ζ')" title="Zeta">ζ</button>
+                <button class="char-btn" onclick="copyChar('η')" title="Eta">η</button>
+                <button class="char-btn" onclick="copyChar('θ')" title="Theta">θ</button>
+                <button class="char-btn" onclick="copyChar('λ')" title="Lambda">λ</button>
+                <button class="char-btn" onclick="copyChar('μ')" title="Mu">μ</button>
+                <button class="char-btn" onclick="copyChar('ρ')" title="Rho">ρ</button>
+                <button class="char-btn" onclick="copyChar('σ')" title="Sigma">σ</button>
+                <button class="char-btn" onclick="copyChar('τ')" title="Tau">τ</button>
+                <button class="char-btn" onclick="copyChar('φ')" title="Phi">φ</button>
+                <button class="char-btn" onclick="copyChar('ω')" title="Omega">ω</button>
+                
+                <!-- Arrows -->
+                <button class="char-btn" onclick="copyChar('←')" title="Seta esquerda">←</button>
+                <button class="char-btn" onclick="copyChar('↑')" title="Seta cima">↑</button>
+                <button class="char-btn" onclick="copyChar('→')" title="Seta direita">→</button>
+                <button class="char-btn" onclick="copyChar('↓')" title="Seta baixo">↓</button>
+                <button class="char-btn" onclick="copyChar('↔')" title="Seta dupla">↔</button>
+                <button class="char-btn" onclick="copyChar('⇒')" title="Implica">⇒</button>
+                <button class="char-btn" onclick="copyChar('⇔')" title="Equivale">⇔</button>
+                
+                <!-- Others -->
+                <button class="char-btn" onclick="copyChar('©')" title="Copyright">©</button>
+                <button class="char-btn" onclick="copyChar('®')" title="Registrado">®</button>
+                <button class="char-btn" onclick="copyChar('™')" title="Marca registrada">™</button>
+                <button class="char-btn" onclick="copyChar('€')" title="Euro">€</button>
+                <button class="char-btn" onclick="copyChar('£')" title="Libra">£</button>
+                <button class="char-btn" onclick="copyChar('¥')" title="Iene">¥</button>
+                <button class="char-btn" onclick="copyChar('¢')" title="Centavo">¢</button>
+                <button class="char-btn" onclick="copyChar('•')" title="Bullet">•</button>
+                <button class="char-btn" onclick="copyChar('✓')" title="Check">✓</button>
+                <button class="char-btn" onclick="copyChar('✗')" title="X">✗</button>
+            </div>
+            <style>
+                .char-btn {
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid var(--border-color);
+                    border-radius: 8px;
+                    color: var(--text-primary);
+                    font-size: 24px;
+                    padding: 15px 0;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .char-btn:hover {
+                    background: var(--primary);
+                    color: var(--bg-primary);
+                    border-color: var(--primary);
+                    transform: scale(1.1);
+                }
+            </style>
         </section>
 
         <!-- ==================== TAB: NOTIFICATIONS / UPDATE LOG ==================== -->
@@ -1322,6 +1433,7 @@
             <i class="fas fa-bell"></i>
             <span class="notification-dot" id="dockNotifDot"></span>
         </button>
+        <button class="dock-btn" onclick="switchTab('special-chars')" title="Caracteres Especiais"><i class="fas fa-font"></i></button>
     </div>
 
     <!-- Focus Mode Overlay -->
@@ -1458,7 +1570,15 @@
         }
 
         function getTabName(tab) {
-            const names = { home: 'Início', geekie: 'Geekie One', shop: 'Loja', tools: 'Ferramentas', achievements: 'Conquistas', notifications: 'Notificações' };
+            const names = { 
+                home: 'Início', 
+                geekie: 'Geekie One', 
+                shop: 'Loja', 
+                tools: 'Ferramentas', 
+                achievements: 'Conquistas', 
+                notifications: 'Notificações', 
+                'special-chars': 'Caracteres Especiais' 
+            };
             return names[tab] || tab;
         }
 
@@ -1674,6 +1794,63 @@
                 localStorage.setItem('geekieNotes', '');
                 showToast('Notas limpas!', 'info');
             }
+        }
+
+        function exportNotes() {
+            const notesContent = document.getElementById('notesArea').value;
+            if (!notesContent) {
+                showToast('Não há notas para exportar!', 'warning');
+                return;
+            }
+            const blob = new Blob([notesContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'geekie_notes_' + new Date().toISOString().slice(0,10) + '.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Notas exportadas com sucesso!', 'success');
+        }
+
+        function importNotes(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const content = e.target.result;
+                const notesArea = document.getElementById('notesArea');
+                
+                if (notesArea.value && notesArea.value !== content) {
+                    if (confirm('Deseja sobrescrever as notas atuais?')) {
+                        notesArea.value = content;
+                        saveNotes();
+                        showToast('Notas importadas com sucesso!', 'success');
+                    } else {
+                        notesArea.value += '\n\n--- Importado ---\n\n' + content;
+                        saveNotes();
+                        showToast('Notas importadas e anexadas!', 'success');
+                    }
+                } else {
+                    notesArea.value = content;
+                    saveNotes();
+                    showToast('Notas importadas com sucesso!', 'success');
+                }
+            };
+            reader.readAsText(file);
+            // Reset input so the same file can be selected again
+            event.target.value = '';
+        }
+
+        function copyChar(char) {
+            navigator.clipboard.writeText(char).then(() => {
+                showToast(`Caractere '${char}' copiado!`, 'success');
+            }).catch(err => {
+                showToast('Erro ao copiar caractere', 'error');
+                console.error('Erro ao copiar:', err);
+            });
         }
 
         // Auto-save notes
