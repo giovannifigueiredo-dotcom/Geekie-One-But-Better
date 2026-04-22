@@ -1201,12 +1201,12 @@
             <div class="stats-summary">
                 <div class="summary-stat">
                     <div class="summary-stat-icon">📢</div>
-                    <div class="summary-stat-value" id="totalUpdates">8</div>
+                    <div class="summary-stat-value" id="totalUpdates">9</div>
                     <div class="summary-stat-label">Total de Updates</div>
                 </div>
                 <div class="summary-stat">
                     <div class="summary-stat-icon">🆕</div>
-                    <div class="summary-stat-value" id="newUpdates">3</div>
+                    <div class="summary-stat-value" id="newUpdates">4</div>
                     <div class="summary-stat-label">Novidades</div>
                 </div>
                 <div class="summary-stat">
@@ -1223,8 +1223,35 @@
 
             <!-- Update Log List -->
             <div class="update-log-list" id="updateLogList">
+
+                <!-- VERSION 5.1 - NOVO -->
+                <div class="update-log-entry new">
+                    <span class="notification-badge-new">ATUAL!</span>
+                    <div class="update-log-header">
+                        <div class="update-version">
+                            v5.1 <span class="version-badge">ULTRA MASTER +</span>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <span class="update-date">Abril 2026</span>
+                            <span class="update-type major">MAJOR</span>
+                        </div>
+                    </div>
+                    <h3 class="update-title">🛠️ Expansão de Ferramentas & Caracteres Especiais</h3>
+                    <p class="update-description">
+                        Adicionada uma nova aba dedicada a caracteres especiais para facilitar seus estudos e 
+                        novas funcionalidades de gerenciamento de notas para maior segurança dos seus dados!
+                    </p>
+                    <ul class="update-features">
+                        <li class="feature-new">🆕 NOVO: Aba de Caracteres Especiais funcional com cópia rápida</li>
+                        <li class="feature-new">🆕 NOVO: Botão de Exportar Notas (.txt) para backup local</li>
+                        <li class="feature-new">🆕 NOVO: Botão de Importar Notas (.txt) com opção de anexar ou sobrescrever</li>
+                        <li class="feature-improved">⬆️ MELHORADO: Layout da ferramenta de notas com botões responsivos</li>
+                        <li class="feature-improved">⬆️ MELHORADO: Sistema de navegação atualizado com 7 abas no total</li>
+                        <li class="feature-fixed">🔧 CORRIGIDO: Otimização de eventos de clique e feedback visual (Toasts)</li>
+                    </ul>
+                </div>
                 
-                <!-- VERSION 5.0 - NOVO -->
+                <!-- VERSION 5.0 -->
                 <div class="update-log-entry new">
                     <span class="notification-badge-new">NOVO!</span>
                     <div class="update-log-header">
@@ -1986,7 +2013,7 @@
         // TAB: NOTIFICATIONS
         // ============================================
         function markNotificationsSeen() {
-            state.notificationsRead.push('v5.0', 'v4.0', 'v3.5');
+            state.notificationsRead.push('v5.1', 'v5.0', 'v4.0', 'v3.5');
             localStorage.setItem('notificationsRead', JSON.stringify(state.notificationsRead));
             document.getElementById('notifBadge').style.display = 'none';
             document.getElementById('dockNotifDot').style.display = 'none';
