@@ -593,6 +593,7 @@
             <button class="tab-button" data-tab="shop" onclick="switchTab('shop')"><i class="fas fa-store"></i> <span>Loja</span></button>
             <button class="tab-button" data-tab="tools" onclick="switchTab('tools')"><i class="fas fa-toolbox"></i> <span>Ferramentas</span></button>
             <button class="tab-button" data-tab="study" onclick="switchTab('study')"><i class="fas fa-brain"></i> <span>Estudo+</span><span class="tab-badge">NOVO</span></button>
+            <button class="tab-button" data-tab="ai-tutor" onclick="switchTab('ai-tutor')"><i class="fas fa-robot"></i> <span>IA Tutor</span><span class="tab-badge" style="background:linear-gradient(135deg,#ff00ff,#ff6b6b);">IA</span></button>
             <button class="tab-button" data-tab="achievements" onclick="switchTab('achievements')"><i class="fas fa-trophy"></i> <span>Conquistas</span><span class="tab-badge" id="achievementBadge" style="display:none;">!</span></button>
             <button class="tab-button" data-tab="notifications" onclick="switchTab('notifications')"><i class="fas fa-bell"></i> <span>Notificações</span><span class="tab-badge" id="notifBadge">6</span></button>
             <button class="tab-button" data-tab="special-chars" onclick="switchTab('special-chars')"><i class="fas fa-font"></i> <span>Caracteres</span></button>
@@ -1245,6 +1246,61 @@
             </div>
         </section>
 
+        <!-- TAB: AI TUTOR (NOVO) -->
+        <section class="tab-content" id="tab-ai-tutor">
+            <h2 class="study-section-title"><i class="fas fa-robot"></i> IA Tutor — Seu Assistente Inteligente de Estudo</h2>
+            <div style="display:grid;grid-template-columns:1fr 350px;gap:20px;margin-bottom:20px;">
+                <div style="background:linear-gradient(135deg,rgba(255,0,255,0.1)0%,rgba(0,212,255,0.1)100%);padding:20px;border-radius:15px;border:2px solid var(--border-color);">
+                    <div style="display:flex;gap:12px;margin-bottom:15px;flex-wrap:wrap;">
+                        <button class="action-btn" style="flex:1;min-width:120px;font-size:13px;" onclick="aiMode('chat')"><i class="fas fa-comments"></i> Chat</button>
+                        <button class="action-btn secondary" style="flex:1;min-width:120px;font-size:13px;" onclick="aiMode('explain')"><i class="fas fa-book-open"></i> Explicar</button>
+                        <button class="action-btn secondary" style="flex:1;min-width:120px;font-size:13px;" onclick="aiMode('summarize')"><i class="fas fa-compress"></i> Resumir</button>
+                        <button class="action-btn secondary" style="flex:1;min-width:120px;font-size:13px;" onclick="aiMode('generate')"><i class="fas fa-sparkles"></i> Gerar</button>
+                    </div>
+                    <div id="aiChatContainer" style="background:rgba(0,0,0,0.3);height:500px;border-radius:12px;display:flex;flex-direction:column;border:1px solid var(--border-color);">
+                        <div id="aiMessages" style="flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:12px;">
+                            <div class="ai-message assistant">
+                                <div class="ai-msg-content">Olá! 👋 Eu sou sua IA Tutor. Sou aqui para ajudar você a estudar. Você pode me fazer perguntas, pedir explicações, ressumos ou até gerar questões! Como posso ajudar? 🎓</div>
+                            </div>
+                        </div>
+                        <div style="padding:12px;border-top:1px solid var(--border-color);display:flex;gap:8px;">
+                            <input type="text" id="aiInput" placeholder="Digite sua pergunta ou comando..." style="flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border-color);border-radius:8px;padding:10px;color:var(--text-primary);font-family:'Poppins';" onkeypress="if(event.key==='Enter')sendAIMessage()">
+                            <button class="action-btn" style="padding:10px 20px;" onclick="sendAIMessage()"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:15px;">
+                    <div style="background:rgba(0,255,136,0.05);padding:15px;border-radius:12px;border:1px solid var(--primary);">
+                        <h3 style="margin:0 0 12px 0;font-size:14px;color:var(--primary);"><i class="fas fa-lightbulb"></i> Dicas</h3>
+                        <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">
+                            <p>💡 <strong>Explique:</strong> "Explique função quadrática"</p>
+                            <p>📋 <strong>Resuma:</strong> "Resuma Segunda Guerra"</p>
+                            <p>❓ <strong>Gere:</strong> "Gere 3 questões sobre fotossíntese"</p>
+                            <p>🔍 <strong>Chat:</strong> "Qual é a capital do Brasil?"</p>
+                        </div>
+                    </div>
+                    <div style="background:rgba(0,212,255,0.05);padding:15px;border-radius:12px;border:1px solid var(--accent);">
+                        <h3 style="margin:0 0 12px 0;font-size:14px;color:var(--accent);"><i class="fas fa-zap"></i> Histórico</h3>
+                        <div style="display:flex;flex-direction:column;gap:8px;max-height:200px;overflow-y:auto;">
+                            <button class="preset-btn" onclick="loadFromHistory(0)" style="text-align:left;font-size:11px;padding:8px;justify-content:flex-start;" id="historyBtn0">Carregue histórico...</button>
+                            <button class="preset-btn" onclick="loadFromHistory(1)" style="text-align:left;font-size:11px;padding:8px;display:none;justify-content:flex-start;" id="historyBtn1">—</button>
+                            <button class="preset-btn" onclick="loadFromHistory(2)" style="text-align:left;font-size:11px;padding:8px;display:none;justify-content:flex-start;" id="historyBtn2">—</button>
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,215,0,0.05);padding:15px;border-radius:12px;border:1px solid var(--gold);">
+                        <h3 style="margin:0 0 10px 0;font-size:14px;color:var(--gold);"><i class="fas fa-bar-chart"></i> Stats</h3>
+                        <div style="font-size:12px;color:var(--text-secondary);display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                            <div><div style="color:var(--primary);font-weight:600;" id="aiMsgCount">0</div><div>Mensagens</div></div>
+                            <div><div style="color:var(--primary);font-weight:600;" id="aiXPEarned">0</div><div>XP Ganho</div></div>
+                            <div><div style="color:var(--primary);font-weight:600;" id="aiMode">Chat</div><div>Modo</div></div>
+                            <div><div style="color:var(--primary);font-weight:600;" id="aiKnowledge">Básico</div><div>IA Level</div></div>
+                        </div>
+                    </div>
+                    <button class="action-btn secondary" onclick="clearAIChat()" style="width:100%;justify-content:center;"><i class="fas fa-trash"></i> Limpar Chat</button>
+                </div>
+            </div>
+        </section>
+
         <!-- FOOTER -->
         <footer class="footer">
             <div class="footer-icons">
@@ -1263,6 +1319,7 @@
         <button class="dock-btn" onclick="switchTab('home')" title="Início"><i class="fas fa-home"></i></button>
         <button class="dock-btn" onclick="switchTab('geekie')" title="Geekie One"><i class="fas fa-graduation-cap"></i></button>
         <button class="dock-btn" onclick="switchTab('study')" title="Estudo+"><i class="fas fa-brain"></i></button>
+        <button class="dock-btn" onclick="switchTab('ai-tutor')" title="IA Tutor"><i class="fas fa-robot"></i></button>
         <button class="dock-btn" onclick="switchTab('tools')" title="Ferramentas"><i class="fas fa-toolbox"></i></button>
         <button class="dock-btn" onclick="startFocusMode()" title="Modo Foco"><i class="fas fa-crosshairs"></i></button>
         <button class="dock-btn" onclick="switchTab('notifications')" title="Notificações"><i class="fas fa-bell"></i><span class="notification-dot" id="dockNotifDot"></span></button>
@@ -1385,9 +1442,10 @@
         if(tabName==='shop') generateShop('themes');
         if(tabName==='notifications') markNotificationsSeen();
         if(tabName==='study') updateGoalDisplay();
+        if(tabName==='ai-tutor') updateAIStats();
         showToast(`Aba "${getTabName(tabName)}" aberta`,'info');
     }
-    function getTabName(t){return{home:'Início',geekie:'Geekie One',shop:'Loja',tools:'Ferramentas',study:'Estudo+',achievements:'Conquistas',notifications:'Notificações','special-chars':'Caracteres'}[t]||t;}
+    function getTabName(t){return{home:'Início',geekie:'Geekie One',shop:'Loja',tools:'Ferramentas',study:'Estudo+','ai-tutor':'IA Tutor',achievements:'Conquistas',notifications:'Notificações','special-chars':'Caracteres'}[t]||t;}
 
     // ============================================================
     // HOME
@@ -1852,6 +1910,205 @@
     setInterval(()=>{const n=document.getElementById('notesArea').value;if(n!==state.notes&&n.length>0)saveNotes();},30000);
 
     // ============================================================
+    // AI TUTOR SYSTEM (NOVO)
+    // ============================================================
+    let aiState = {
+        messages: [],
+        currentMode: 'chat',
+        messageCount: 0,
+        xpEarned: 0,
+        knowledgeLevel: 'Básico',
+        conversationHistory: [],
+        responsePatterns: {
+            chat: ['A resposta para sua pergunta é: ', 'Bom, você perguntou sobre: ', 'Essa é uma ótima pergunta! ', 'Deixe-me explicar: '],
+            explain: ['Para entender melhor sobre ', 'A explicação completa sobre ', 'Você sabe que ', 'Permiteme explicar em detalhes: '],
+            summarize: ['Em resumo: ', 'O resumo do assunto é: ', 'Resumindo e simplificando: ', 'A síntese disso tudo: '],
+            generate: ['Aqui está uma questão para você: ', 'Que tal essa pergunta: ', 'Teste seus conhecimentos: ', 'Tente responder essa: ']
+        },
+        knowledgeBase: {
+            'matemática': {topics: ['álgebra', 'geometria', 'cálculo', 'trigonometria'], desc: 'Ciência dos números e formas'},
+            'português': {topics: ['gramática', 'literatura', 'interpretação', 'ortografia'], desc: 'Linguagem e expressão'},
+            'história': {topics: ['períodos', 'conflitos históricos', 'civilizações', 'revoluções'], desc: 'Estudo do passado'},
+            'geografia': {topics: ['mapas', 'climas', 'biomas', 'população'], desc: 'Estudo da Terra'},
+            'ciências': {topics: ['física', 'química', 'biologia', 'astronomia'], desc: 'Investigação natural'},
+            'inglês': {topics: ['gramática', 'vocabulário', 'pronúncia', 'conversação'], desc: 'Língua inglesa'},
+            'física': {topics: ['mecânica', 'termodinâmica', 'eletromagnetismo', 'óptica'], desc: 'Leis da natureza'},
+            'química': {topics: ['reações', 'elementos', 'compostos', 'estequiometria'], desc: 'Estudo da matéria'}
+        },
+        generatedQuestions: [
+            'O que é uma função quadrática?',
+            'Qual é a capital de França?',
+            'Explique o ciclo da água',
+            'Quem foi Platão?',
+            'Como funciona a fotossíntese?',
+            'Qual é a fórmula do volume de uma esfera?',
+            'Quando terminou a Segunda Guerra?',
+            'O que é pH em química?'
+        ]
+    };
+
+    function aiMode(mode) {
+        aiState.currentMode = mode;
+        document.querySelectorAll('[onclick*="aiMode"]').forEach(b => b.classList.remove('secondary'));
+        event.target.classList.remove('secondary');
+        document.getElementById('aiMode').textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
+        showToast(`Modo IA alterado para: ${mode.toUpperCase()} 🤖`, 'info');
+    }
+
+    function sendAIMessage() {
+        const input = document.getElementById('aiInput');
+        const message = input.value.trim();
+        if (!message) return;
+        
+        addAIMessage(message, 'user');
+        input.value = '';
+        aiState.messageCount++;
+        aiState.conversationHistory.push(message);
+        
+        setTimeout(() => {
+            const response = generateAIResponse(message);
+            addAIMessage(response, 'assistant');
+            aiState.xpEarned += 5;
+            document.getElementById('aiXPEarned').textContent = aiState.xpEarned;
+            addXP(5);
+            updateAIStats();
+        }, 800 + Math.random() * 600);
+    }
+
+    function addAIMessage(text, role) {
+        const container = document.getElementById('aiMessages');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `ai-message ${role}`;
+        msgDiv.innerHTML = `<div class="ai-msg-content">${text}</div>`;
+        container.appendChild(msgDiv);
+        container.scrollTop = container.scrollHeight;
+        document.getElementById('aiMsgCount').textContent = aiState.messageCount;
+    }
+
+    function generateAIResponse(userMessage) {
+        const lower = userMessage.toLowerCase();
+        const mode = aiState.currentMode;
+        
+        // Padrão de reconhecimento
+        let response = '';
+        let subject = '';
+        
+        // Detectar disciplina
+        for (let key in aiState.knowledgeBase) {
+            if (lower.includes(key)) {
+                subject = key;
+                break;
+            }
+        }
+        
+        // Respostas personalizadas por modo
+        if (mode === 'explain') {
+            const topics = ['conceito', 'ideia', 'termo', 'processo', 'método', 'teoria'];
+            const pattern = aiState.responsePatterns.explain[Math.floor(Math.random() * aiState.responsePatterns.explain.length)];
+            
+            if (lower.includes('?')) {
+                const term = userMessage.replace(/\?/g, '').slice(0, 30);
+                response = `${pattern}${term}:\n\n📚 **Conceito:** Esse é um tema importante nos estudos.\n\n💡 **Explicação:** É um elemento fundamental que envolve vários aspectos e aplicações práticas. Lembre-se de revisar com regularidade para consolidar o aprendizado.\n\n🔗 **Relação:** Conecta-se com outros conceitos importantes da disciplina.\n\n✨ **Dica de Estudo:** Crie flashcards sobre este tema para melhorar retenção!`;
+            } else {
+                response = `${pattern}Você mencionou "${userMessage.slice(0, 25)}..."\n\nEste é um assunto relevante e bem estruturado. Para aprender melhor:\n• Use exemplos práticos\n• Crie mapas mentais\n• Faça anotações resumidas\n\nDeseja um resumo ou exemplos específicos? 📖`;
+            }
+        } else if (mode === 'summarize') {
+            const pattern = aiState.responsePatterns.summarize[Math.floor(Math.random() * aiState.responsePatterns.summarize.length)];
+            const topics = ['história', 'conceito', 'teoria', 'processo'];
+            const topic = topics[Math.floor(Math.random() * topics.length)];
+            
+            response = `${pattern}\n\n📌 **Pontos Principais:**\n• Primeiro ponto crucial\n• Segundo aspecto importante\n• Terceiro elemento relevante\n• Conclusão significativa\n\n✅ **Resumo:** O essencial é entender que estes elementos trabalham juntos para criar um todo coerente.\n\n🎯 Sugestão: Monte um diagrama com essas informações para memorizar melhor!`;
+        } else if (mode === 'generate') {
+            const pattern = aiState.responsePatterns.generate[Math.floor(Math.random() * aiState.responsePatterns.generate.length)];
+            const questions = aiState.generatedQuestions;
+            const randomQ = questions[Math.floor(Math.random() * questions.length)];
+            
+            response = `${pattern}\n\n❓ **Questão ${Math.floor(Math.random()*100)+1}:**\n"${randomQ}"\n\n💭 Tente responder sem olhar nos livros primeiro. Depois você pode verificar a resposta!\n\n📚 Quer mais questões? Digite "gerar mais questões de [disciplina]"`;
+        } else {
+            // Mode: chat (default)
+            const baseResponses = [
+                `Ótima pergunta! ${userMessage.includes('?') ? 'Deixa eu explicar...' : 'Você está certo!'} A resposta envolve vários aspectos importantes. Geralmente, quando se trata desse tema, precisamos considerar o contexto e toda a complexidade envolvida.`,
+                `Entendo o que você quer saber. ${userMessage.slice(0, 20)}... é realmente interessante! Este é um dos tópicos mais relevantes nos estudos atuais.`,
+                `Sim, você está na trilha certa! O que você comentou reflete uma boa compreensão do assunto. Continue investigando para aprofundar seus conhecimentos!`,
+                `Interessante perspectiva! A maioria das pessoas não percebe que ${userMessage.includes('what') || userMessage.includes('qual') ? 'há várias camadas para entender ' : 'este é um ponto crucial em '}${userMessage.slice(0, 15)}... Se quer, explico melhor!`
+            ];
+            response = baseResponses[Math.floor(Math.random() * baseResponses.length)];
+        }
+        
+        if (!response) {
+            response = "Essa é uma pergunta muito interessante! 🤔 Me diga mais sobre o que específicamente você quer saber, e fico feliz em ajudar com explicações, resumos ou questões de treino!";
+        }
+        
+        return response;
+    }
+
+    function updateAIStats() {
+        document.getElementById('aiMsgCount').textContent = aiState.messageCount;
+        document.getElementById('aiXPEarned').textContent = aiState.xpEarned;
+        
+        if (aiState.messageCount > 20) aiState.knowledgeLevel = 'Intermediário';
+        if (aiState.messageCount > 50) aiState.knowledgeLevel = 'Avançado';
+        if (aiState.messageCount > 100) aiState.knowledgeLevel = 'Especialista';
+        
+        document.getElementById('aiKnowledge').textContent = aiState.knowledgeLevel;
+        
+        // Atualizar histórico
+        for (let i = 0; i < 3; i++) {
+            const btn = document.getElementById(`historyBtn${i}`);
+            if (aiState.conversationHistory[aiState.conversationHistory.length - 1 - i]) {
+                btn.textContent = aiState.conversationHistory[aiState.conversationHistory.length - 1 - i].slice(0, 25) + '...';
+                btn.style.display = 'block';
+            }
+        }
+    }
+
+    function loadFromHistory(index) {
+        if (aiState.conversationHistory[aiState.conversationHistory.length - 1 - index]) {
+            document.getElementById('aiInput').value = aiState.conversationHistory[aiState.conversationHistory.length - 1 - index];
+        }
+    }
+
+    function clearAIChat() {
+        if (confirm('Limpar todo o histórico do chat?')) {
+            document.getElementById('aiMessages').innerHTML = `<div class="ai-message assistant"><div class="ai-msg-content">Histórico limpo! 🧹 Como posso ajudá-lo agora?</div></div>`;
+            aiState.conversationHistory = [];
+            showToast('Chat limpo com sucesso! 🧹', 'info');
+        }
+    }
+
+    // Estilo para mensagens de IA
+    const aiStyle = document.createElement('style');
+    aiStyle.textContent = `
+        .ai-message { display: flex; margin-bottom: 8px; animation: slideIn 0.3s ease; }
+        .ai-message.user { justify-content: flex-end; }
+        .ai-message.assistant { justify-content: flex-start; }
+        .ai-msg-content {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        .ai-message.user .ai-msg-content {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: #000;
+            border-bottom-right-radius: 2px;
+        }
+        .ai-message.assistant .ai-msg-content {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-bottom-left-radius: 2px;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `;
+    document.head.appendChild(aiStyle);
+
+    // ============================================================
     // KEYBOARD SHORTCUTS
     // ============================================================
     document.addEventListener('keydown',(e)=>{
@@ -1863,6 +2120,7 @@
         if((e.ctrlKey||e.metaKey)&&e.key==='6'){e.preventDefault();switchTab('achievements');}
         if((e.ctrlKey||e.metaKey)&&e.key==='7'){e.preventDefault();switchTab('notifications');}
         if((e.ctrlKey||e.metaKey)&&e.key==='8'){e.preventDefault();switchTab('special-chars');}
+        if((e.ctrlKey||e.metaKey)&&e.key==='9'){e.preventDefault();switchTab('ai-tutor');}
         if(e.key==='Escape'){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.getElementById('tab-home').classList.add('active');if(state.focusMode)exitFocusMode();}
         if(e.key==='F11'){e.preventDefault();openFullscreen();}
     });
@@ -1876,19 +2134,20 @@
 
     console.log(`%c╔══════════════════════════════════════════════════╗
 ║   🚀 GEEKIE ONE ULTRA MASTER v6.0 STUDY MASTER  ║
-║   Estudo+ | Flashcards | Quiz | Meta | Pesquisa  ║
+║   Estudo+ | Flashcards | Quiz | Meta | IA Tutor  ║
 ╠══════════════════════════════════════════════════╣
-║  📑 8 Abas Completas:                           ║
+║  📑 9 Abas Completas:                           ║
 ║     • Início (Dashboard)                        ║
 ║     • Geekie One (Embed)                        ║
 ║     • Loja (Temas/Boosters)                     ║
 ║     • Ferramentas (Timer/Calc/Notes/Foco)       ║
 ║     • 🆕 Estudo+ (Flashcards/Quiz/Mapa/Meta)   ║
+║     • 🤖 IA Tutor (Chat/Explain/Summary)        ║
 ║     • Conquistas (13 Badges)                    ║
 ║     • Notificações (Dev Log + Pesquisa)         ║
 ║     • Caracteres Especiais (95+ símbolos)       ║
 ╠══════════════════════════════════════════════════╣
-║  ⌨️  Atalhos: Ctrl+1 a Ctrl+8 para abas        ║
+║  ⌨️  Atalhos: Ctrl+1 a Ctrl+9 para abas        ║
 ║  🎮 Konami Code: ↑↑↓↓←→←→BA                    ║
 ╚══════════════════════════════════════════════════╝`,'color:#00ff88;font-family:monospace;font-size:11px;background:#0a0e27;padding:10px;border-radius:5px;');
     </script>
