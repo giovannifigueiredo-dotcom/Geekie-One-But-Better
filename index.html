@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geekie One Ultra v7.0 - Study Hub</title>
+    <title>Geekie One Ultra v7.1 - Study Hub</title>
     <!-- Fontes Modernas -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <!-- Ícones -->
@@ -24,6 +24,7 @@
             --border: rgba(255, 255, 255, 0.1);
             --danger: #ff4757;
             --success: #2ed573;
+            --gold: #ffd700;
             --sidebar-width: 260px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -113,6 +114,8 @@
         }
 
         .nav-item i { width: 20px; text-align: center; }
+        .nav-item.store-link { color: var(--gold); }
+        .nav-item.store-link.active { border-left-color: var(--gold); background: linear-gradient(90deg, rgba(255,215,0,0.1), transparent); }
 
         /* ================= MAIN CONTENT ================= */
         .main-content {
@@ -170,10 +173,39 @@
             border-radius: 20px;
         }
 
+        /* Economy System */
+        .coin-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: var(--gold);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .coin-anim {
+            position: absolute;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+            animation: floatUp 1.5s ease-out forwards;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-30px) scale(1.5); }
+        }
+
         /* Content Area (Tabs) */
         .tab-content {
             flex: 1;
-            display: none; /* Escondido por padrão */
+            display: none;
             padding: 20px;
             overflow-y: auto;
             animation: fadeIn 0.4s ease;
@@ -189,19 +221,60 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ================= GEEKIE EMBED (IFRAME) ================= */
+        /* ================= GEEKIE EMBED (IFRAME) & THEMES ================= */
         .iframe-container {
             flex: 1;
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid var(--border);
-            background: #fff; /* Fundo branco caso o Geekie demore a carregar */
+            border: 2px solid var(--border);
+            background: #fff;
+            transition: all 0.3s ease;
         }
         
         .iframe-container iframe {
             width: 100%;
             height: 100%;
             border: none;
+            background: #fff;
+        }
+
+        /* TEMAS ANIMADOS PARA O IFRAME */
+        .theme-default { border: 2px solid var(--border); box-shadow: none; }
+
+        .theme-neon {
+            border: 2px solid var(--accent) !important;
+            box-shadow: 0 0 10px var(--accent), inset 0 0 10px var(--accent) !important;
+            animation: neonPulse 2s infinite alternate;
+        }
+        @keyframes neonPulse {
+            0% { box-shadow: 0 0 5px var(--accent), inset 0 0 5px var(--accent); }
+            100% { box-shadow: 0 0 25px var(--accent), inset 0 0 15px var(--accent); border-color: #fff !important; }
+        }
+
+        .theme-rgb {
+            border: 3px solid #ff0000 !important;
+            animation: rgbBorder 5s linear infinite;
+        }
+        @keyframes rgbBorder {
+            0% { border-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
+            20% { border-color: #ff00ff; box-shadow: 0 0 20px #ff00ff; }
+            40% { border-color: #0000ff; box-shadow: 0 0 20px #0000ff; }
+            60% { border-color: #00ffff; box-shadow: 0 0 20px #00ffff; }
+            80% { border-color: #00ff00; box-shadow: 0 0 20px #00ff00; }
+            100% { border-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
+        }
+
+        .theme-matrix {
+            border: 2px solid #00ff00 !important;
+            box-shadow: 0 0 15px #00ff00 !important;
+            animation: matrixGlitch 0.4s infinite;
+        }
+        @keyframes matrixGlitch {
+            0% { border-color: #00ff00; box-shadow: 0 0 15px #00ff00; transform: translate(0); }
+            25% { border-color: #008800; box-shadow: none; transform: translate(1px, 1px); }
+            50% { border-color: #00ff00; box-shadow: 0 0 25px #00ff00; transform: translate(-1px, -1px); }
+            75% { border-color: #004400; box-shadow: none; transform: translate(0, 1px); }
+            100% { border-color: #00ff00; box-shadow: 0 0 15px #00ff00; transform: translate(0); }
         }
 
         /* ================= CARDS & WIDGETS ================= */
@@ -227,23 +300,7 @@
             gap: 10px;
         }
 
-        /* --- POMODORO TIMER --- */
-        .timer-display {
-            font-size: 4rem;
-            font-family: 'Fira Code', monospace;
-            text-align: center;
-            margin: 20px 0;
-            font-weight: 700;
-            color: var(--text-main);
-            text-shadow: 0 0 20px rgba(255,255,255,0.2);
-        }
-
-        .timer-controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
+        /* Botões */
         .btn {
             padding: 10px 20px;
             border: none;
@@ -253,6 +310,7 @@
             transition: var(--transition);
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
         }
 
@@ -260,44 +318,107 @@
         .btn-primary:hover { box-shadow: 0 0 15px var(--primary-glow); }
         .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
         .btn-outline:hover { background: rgba(255,255,255,0.1); }
+        .btn-gold { background: linear-gradient(45deg, #ffd700, #ffaa00); color: #000; font-weight: bold; border: none; }
+        .btn-gold:hover { box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); transform: translateY(-2px); }
+        .btn-disabled { background: #333; color: #777; cursor: not-allowed; }
 
-        .pomodoro-stats {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        /* --- TAREFAS / TODO LIST --- */
-        .todo-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        input[type="text"] {
-            flex: 1;
-            background: rgba(0,0,0,0.2);
+        /* Store Items */
+        .store-item {
+            background: rgba(0,0,0,0.3);
             border: 1px solid var(--border);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        input[type="text"]:focus { border-color: var(--primary); }
-
-        .todo-list { list-style: none; max-height: 300px; overflow-y: auto; }
-        .todo-item {
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255,255,255,0.05);
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-bottom: 8px;
+            flex-direction: column;
+            gap: 15px;
             transition: var(--transition);
         }
+        .store-item:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .store-item i.preview-icon { font-size: 3rem; color: var(--text-muted); margin-bottom: 10px; }
+        .store-price { color: var(--gold); font-weight: bold; font-size: 1.2rem; }
+
+        /* --- DEV LOG (TIMELINE) --- */
+        .timeline {
+            border-left: 3px solid rgba(0, 255, 136, 0.3);
+            margin-left: 20px;
+            padding-left: 30px;
+            position: relative;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .timeline-item:hover {
+            border-color: var(--primary-glow);
+            transform: translateX(5px);
+        }
+        .timeline-item::before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: absolute;
+            left: -39px;
+            top: 25px;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+        .timeline-item.old-version::before {
+            background: var(--text-muted);
+            box-shadow: none;
+        }
+        .timeline-item.old-version { border-color: transparent; }
+        
+        .version-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .version-tag {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .version-date { color: var(--text-muted); font-size: 0.85rem; }
+        .timeline-item ul { list-style: none; padding-left: 10px; }
+        .timeline-item ul li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+            color: #d1d5db;
+        }
+        .timeline-item ul li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-family: 'Fira Code', monospace;
+            font-weight: bold;
+        }
+
+        /* --- POMODORO TIMER --- */
+        .timer-display { font-size: 4rem; font-family: 'Fira Code', monospace; text-align: center; margin: 20px 0; font-weight: 700; color: var(--text-main); text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .timer-controls { display: flex; justify-content: center; gap: 10px; }
+        .pomodoro-stats { text-align: center; margin-top: 15px; font-size: 0.9rem; color: var(--text-muted); }
+
+        /* --- TAREFAS / TODO LIST --- */
+        .todo-input-group { display: flex; gap: 10px; margin-bottom: 15px; }
+        input[type="text"] { flex: 1; background: rgba(0,0,0,0.2); border: 1px solid var(--border); color: white; padding: 10px 15px; border-radius: 8px; outline: none; transition: border-color 0.3s; }
+        input[type="text"]:focus { border-color: var(--primary); }
+        .todo-list { list-style: none; max-height: 300px; overflow-y: auto; }
+        .todo-item { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; transition: var(--transition); }
         .todo-item.completed span { text-decoration: line-through; color: var(--text-muted); }
         .todo-actions { display: flex; gap: 10px; }
         .todo-actions i { cursor: pointer; transition: color 0.2s; }
@@ -305,73 +426,21 @@
         .todo-actions .delete { color: var(--danger); }
 
         /* --- FLASHCARDS --- */
-        .flashcard-container {
-            perspective: 1000px;
-            height: 300px;
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto 20px;
-        }
-
-        .flashcard {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-
+        .flashcard-container { perspective: 1000px; height: 300px; width: 100%; max-width: 500px; margin: 0 auto 20px; }
+        .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
         .flashcard.is-flipped { transform: rotateY(180deg); }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            font-size: 1.2rem;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
+        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; padding: 30px; border-radius: 15px; text-align: center; font-size: 1.2rem; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .card-front { background: linear-gradient(135deg, var(--bg-glass), rgba(123, 44, 191, 0.2)); color: var(--primary); }
-        .card-back {
-            background: linear-gradient(135deg, var(--bg-glass), rgba(0, 212, 255, 0.2));
-            transform: rotateY(180deg);
-        }
-
+        .card-back { background: linear-gradient(135deg, var(--bg-glass), rgba(0, 212, 255, 0.2)); transform: rotateY(180deg); }
         .flashcard-controls { display: flex; justify-content: center; gap: 15px; }
 
         /* --- PLAYER LOFI & AMBIENT --- */
-        .ambient-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .ambient-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border);
-            padding: 15px;
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-        }
+        .ambient-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .ambient-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 15px; border-radius: 8px; color: white; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: var(--transition); }
         .ambient-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent); }
         .ambient-btn.active { background: rgba(0, 212, 255, 0.2); border-color: var(--accent); color: var(--accent); }
         .ambient-btn i { font-size: 1.5rem; }
 
-        /* Utilidades */
         .w-full { width: 100%; }
         .mt-4 { margin-top: 1rem; }
     </style>
@@ -382,11 +451,14 @@
     <aside class="sidebar" id="sidebar">
         <div class="brand">
             <i class="fa-solid fa-graduation-cap"></i>
-            Geekie Ultra <span style="font-size:0.6em; background:var(--primary); color:#000; padding:2px 5px; border-radius:4px; margin-left:auto;">v7.0</span>
+            Geekie Ultra <span style="font-size:0.6em; background:var(--primary); color:#000; padding:2px 5px; border-radius:4px; margin-left:auto;">v7.1</span>
         </div>
         <nav class="nav-menu">
             <div class="nav-item active" onclick="switchTab('tab-geekie', this)">
                 <i class="fa-solid fa-book-open"></i> Portal Geekie
+            </div>
+            <div class="nav-item store-link" onclick="switchTab('tab-store', this)">
+                <i class="fa-solid fa-store"></i> Loja de Temas
             </div>
             <div class="nav-item" onclick="switchTab('tab-focus', this)">
                 <i class="fa-solid fa-stopwatch"></i> Foco & Tarefas
@@ -396,6 +468,10 @@
             </div>
             <div class="nav-item" onclick="switchTab('tab-ambient', this)">
                 <i class="fa-solid fa-headphones"></i> Sons Ambiente
+            </div>
+            <!-- NOVA ABA DEV LOG -->
+            <div class="nav-item" onclick="switchTab('tab-devlog', this)" style="margin-top: 20px; border-top: 1px solid var(--border); border-radius: 0; padding-top: 15px;">
+                <i class="fa-solid fa-clock-rotate-left"></i> Dev Log
             </div>
         </nav>
     </aside>
@@ -409,6 +485,10 @@
             </button>
             
             <div class="topbar-right">
+                <div class="coin-display" id="coinContainer" title="Suas Moedas (Ganhe estudando!)">
+                    <i class="fa-solid fa-coins"></i> 
+                    <span id="coinCount">0</span>
+                </div>
                 <div class="clock-widget" id="realTimeClock">00:00:00</div>
                 <button class="btn-icon" id="btnZenMode" title="Modo Zen (Tela Cheia)" onclick="toggleZenMode()">
                     <i class="fa-solid fa-expand"></i>
@@ -417,14 +497,27 @@
         </header>
 
         <!-- TAB 1: GEEKIE ONE (IFRAME) -->
-        <section id="tab-geekie" class="tab-content active" style="padding: 0;">
-            <div class="iframe-container">
-                <!-- Substitua o src pelo link de login/portal real do Geekie One -->
+        <section id="tab-geekie" class="tab-content active" style="padding: 20px;">
+            <div class="iframe-container theme-default" id="geekieIframeContainer">
                 <iframe src="https://dx1website.pages.dev/resumao/geekieoneplus/" title="Geekie One Portal"></iframe>
             </div>
         </section>
 
-        <!-- TAB 2: FOCO & TAREFAS -->
+        <!-- TAB 2: LOJA DE TEMAS -->
+        <section id="tab-store" class="tab-content">
+            <div class="glass-card w-full" style="max-width: 900px; margin: 0 auto;">
+                <h3 style="color: var(--gold);"><i class="fa-solid fa-store"></i> Loja de Temas (Skins do Iframe)</h3>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">
+                    Personalize sua área de estudo! Ganhe moedas focando (Pomodoro: +50), fazendo tarefas (+10) e criando flashcards (+5).
+                </p>
+                
+                <div class="grid-dashboard mt-4" id="storeGrid">
+                    <!-- Gerado via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: FOCO & TAREFAS -->
         <section id="tab-focus" class="tab-content">
             <div class="grid-dashboard">
                 <!-- Timer -->
@@ -456,18 +549,17 @@
             </div>
         </section>
 
-        <!-- TAB 3: FLASHCARDS -->
+        <!-- TAB 4: FLASHCARDS -->
         <section id="tab-flashcards" class="tab-content">
             <div class="glass-card" style="max-width: 800px; margin: 0 auto; width: 100%;">
                 <h3><i class="fa-solid fa-bolt"></i> Revisão Ativa (Flashcards)</h3>
                 
-                <!-- Área de Criação de Flashcards -->
                 <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
                     <h4 style="margin-bottom: 10px; color: var(--accent); font-size: 0.9rem;">Criar Novo Flashcard</h4>
                     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <input type="text" id="newCardFront" placeholder="Frente (Ex: Fórmula da Água)" style="flex: 1; min-width: 200px;">
                         <input type="text" id="newCardBack" placeholder="Verso (Ex: H2O)" style="flex: 1; min-width: 200px;">
-                        <button class="btn btn-primary" onclick="addFlashcard()"><i class="fa-solid fa-plus"></i> Adicionar</button>
+                        <button class="btn btn-primary" onclick="addFlashcard()"><i class="fa-solid fa-plus"></i> Adicionar (+5 moedas)</button>
                     </div>
                 </div>
 
@@ -475,12 +567,8 @@
                 
                 <div class="flashcard-container" onclick="flipCard()">
                     <div class="flashcard" id="flashcard">
-                        <div class="card-front" id="cardFront">
-                            Carregando...
-                        </div>
-                        <div class="card-back" id="cardBack">
-                            Carregando...
-                        </div>
+                        <div class="card-front" id="cardFront">Carregando...</div>
+                        <div class="card-back" id="cardBack">Carregando...</div>
                     </div>
                 </div>
 
@@ -490,7 +578,6 @@
                     <button class="btn btn-primary" onclick="nextCard()">Próximo <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
                 
-                <!-- Controles Extras do Card Atual -->
                 <div style="display: flex; justify-content: center; margin-top: 15px;">
                     <button class="btn btn-outline" style="color: var(--danger); border-color: var(--danger);" onclick="deleteCurrentCard()">
                         <i class="fa-solid fa-trash"></i> Excluir Card Atual
@@ -499,7 +586,7 @@
             </div>
         </section>
 
-        <!-- TAB 4: SONS AMBIENTE -->
+        <!-- TAB 5: SONS AMBIENTE -->
         <section id="tab-ambient" class="tab-content">
             <div class="glass-card" style="max-width: 600px; margin: 0 auto; width: 100%;">
                 <h3><i class="fa-solid fa-wave-square"></i> Frequências de Foco</h3>
@@ -507,17 +594,13 @@
                 
                 <div class="ambient-grid">
                     <button class="ambient-btn" id="btn-noise" onclick="toggleAudio('noise')">
-                        <i class="fa-solid fa-water"></i>
-                        Ruído Marrom (TDAH)
+                        <i class="fa-solid fa-water"></i> Ruído Marrom (TDAH)
                     </button>
                     <button class="ambient-btn" id="btn-rain" onclick="toggleAudio('rain')">
-                        <i class="fa-solid fa-cloud-rain"></i>
-                        Chuva Suave
+                        <i class="fa-solid fa-cloud-rain"></i> Chuva Suave
                     </button>
                 </div>
                 
-                <!-- Audio elements (Using safe, open source nature sounds for demonstration) -->
-                <!-- Note: In a real app, you might use YouTube Iframe API for Lofi streams -->
                 <audio id="audio-noise" loop preload="none">
                     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_24a56d9595.mp3?filename=brown-noise-9005.mp3" type="audio/mpeg">
                 </audio>
@@ -532,6 +615,90 @@
             </div>
         </section>
 
+        <!-- TAB 6: DEV LOG (NOVA) -->
+        <section id="tab-devlog" class="tab-content">
+            <div class="glass-card w-full" style="max-width: 900px; margin: 0 auto;">
+                <h3><i class="fa-solid fa-laptop-code"></i> Developer Changelog</h3>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">
+                    Acompanhe o histórico de atualizações e novas funcionalidades implementadas pela IA no seu Study Hub.
+                </p>
+
+                <div class="timeline">
+                    <!-- Update v7.1 -->
+                    <div class="timeline-item">
+                        <div class="version-header">
+                            <span class="version-tag">v7.1.0</span>
+                            <h3>Gamificação & Dev Log</h3>
+                            <span class="version-date">Atualização Recente</span>
+                        </div>
+                        <ul>
+                            <li><strong>Implementado:</strong> Sistema de economia virtual (Geekie Coins).</li>
+                            <li><strong>Implementado:</strong> Loja de Temas (Skins animadas para o Iframe).</li>
+                            <li><strong>Recompensas:</strong> Ganho de moedas ao concluir Pomodoros (+50), Tarefas (+10) e Flashcards (+5).</li>
+                            <li><strong>Implementado:</strong> Temas Neon Pulse, Chroma RGB e Hacker Matrix.</li>
+                            <li><strong>Implementado:</strong> Aba de Dev Log para histórico de atualizações.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Update v7.0.2 -->
+                    <div class="timeline-item">
+                        <div class="version-header">
+                            <span class="version-tag">v7.0.2</span>
+                            <h3>Flashcards Customizados</h3>
+                        </div>
+                        <ul>
+                            <li><strong>Melhoria:</strong> Sistema de Flashcards 3D agora possui funcionalidade CRUD.</li>
+                            <li><strong>Implementado:</strong> Inputs de criação de novos Flashcards pela interface.</li>
+                            <li><strong>Implementado:</strong> Exclusão segura de Flashcards em visualização.</li>
+                            <li><strong>Sistema:</strong> Integração completa com LocalStorage para salvar os cards do usuário offline.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Update v7.0.1 -->
+                    <div class="timeline-item">
+                        <div class="version-header">
+                            <span class="version-tag">v7.0.1</span>
+                            <h3>Fix de Segurança (Iframe)</h3>
+                        </div>
+                        <ul>
+                            <li><strong>Correção:</strong> Bypass do bloqueio `X-Frame-Options` do site original.</li>
+                            <li><strong>Migração:</strong> Iframe redirecionado para o proxy seguro no Pages (dx1website).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Update v7.0 -->
+                    <div class="timeline-item">
+                        <div class="version-header">
+                            <span class="version-tag">v7.0.0</span>
+                            <h3>The Study Hub Update</h3>
+                        </div>
+                        <ul>
+                            <li><strong>Design:</strong> Refatoração completa da UI para o estilo "Glassmorphism" Dark Mode.</li>
+                            <li><strong>Feature:</strong> Modo Zen (Tela cheia imersiva).</li>
+                            <li><strong>Feature:</strong> Pomodoro Inteligente com alerta sonoro e contagem de ciclos.</li>
+                            <li><strong>Feature:</strong> Gerenciador de Metas (To-Do List) persistente no navegador.</li>
+                            <li><strong>Feature:</strong> Frequências de Foco (Player de Ruído Marrom e Chuva).</li>
+                            <li><strong>Feature:</strong> Revisão Ativa (Primeira versão visual dos Flashcards 3D).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Update v6.0 -->
+                    <div class="timeline-item old-version">
+                        <div class="version-header">
+                            <span class="version-tag" style="background: rgba(148, 163, 184, 0.2); color: var(--text-muted);">v6.0.0</span>
+                            <h3 style="color: var(--text-muted);">Geekie Ultra Master Original</h3>
+                        </div>
+                        <ul>
+                            <li>Dashboard Original com 9 abas.</li>
+                            <li>Integração básica do Iframe Geekie One.</li>
+                            <li>Sistema IA Tutor (Estrutura base).</li>
+                            <li>Sistema de Conquistas (Badges originais).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Áudio de notificação do Pomodoro -->
@@ -541,8 +708,7 @@
         // ================== CLOCK LOGIC ==================
         function updateClock() {
             const now = new Date();
-            const timeString = now.toLocaleTimeString('pt-BR');
-            document.getElementById('realTimeClock').textContent = timeString;
+            document.getElementById('realTimeClock').textContent = now.toLocaleTimeString('pt-BR');
         }
         setInterval(updateClock, 1000);
         updateClock();
@@ -556,16 +722,11 @@
         });
 
         function switchTab(tabId, element) {
-            // Remove active de todos os nav items
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
-
-            // Esconde todas as tabs
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            // Mostra a tab selecionada
             document.getElementById(tabId).classList.add('active');
 
-            // Se for mobile, fecha a sidebar ao clicar num link
             if(window.innerWidth < 768) {
                 sidebar.classList.add('collapsed');
             }
@@ -576,7 +737,6 @@
         function toggleZenMode() {
             isZen = !isZen;
             const topbar = document.querySelector('.topbar');
-            const icon = document.querySelector('#btnZenMode i');
             
             if (isZen) {
                 sidebar.classList.add('collapsed');
@@ -585,22 +745,119 @@
             } else {
                 sidebar.classList.remove('collapsed');
                 topbar.style.display = 'flex';
-                if (document.fullscreenElement) {
-                    document.exitFullscreen();
-                }
+                if (document.fullscreenElement) document.exitFullscreen();
             }
         }
 
-        // Sair do Zen Mode com ESC
         document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement && isZen) {
-                toggleZenMode();
-            }
+            if (!document.fullscreenElement && isZen) toggleZenMode();
         });
+
+        // ================== ECONOMY & STORE LOGIC ==================
+        let coins = parseInt(localStorage.getItem('geekieCoins')) || 0;
+        let ownedThemes = JSON.parse(localStorage.getItem('geekieThemes')) || ['theme-default'];
+        let equippedTheme = localStorage.getItem('geekieEquipped') || 'theme-default';
+
+        const storeItems = [
+            { id: 'theme-default', name: 'Original', price: 0, icon: 'fa-square', desc: 'Borda simples, limpo.' },
+            { id: 'theme-neon', name: 'Neon Pulse', price: 100, icon: 'fa-bolt', desc: 'Borda azul brilhante que pulsa suavemente.' },
+            { id: 'theme-rgb', name: 'Chroma RGB', price: 300, icon: 'fa-palette', desc: 'Tema gamer que muda de cor constantemente.' },
+            { id: 'theme-matrix', name: 'Hacker Matrix', price: 500, icon: 'fa-terminal', desc: 'Efeito glitch verde cibernético.' }
+        ];
+
+        const coinCountElement = document.getElementById('coinCount');
+        const coinContainer = document.getElementById('coinContainer');
+        const iframeContainer = document.getElementById('geekieIframeContainer');
+
+        function updateCoinDisplay() {
+            coinCountElement.textContent = coins;
+            localStorage.setItem('geekieCoins', coins);
+            renderStore(); // Update buttons state
+        }
+
+        function addCoins(amount) {
+            coins += amount;
+            updateCoinDisplay();
+            
+            // Animação flutuante das moedas
+            const anim = document.createElement('div');
+            anim.className = 'coin-anim';
+            anim.textContent = `+${amount}`;
+            
+            const randomX = Math.floor(Math.random() * 20) - 10;
+            anim.style.left = `calc(50% + ${randomX}px)`;
+            anim.style.top = '10px';
+            
+            coinContainer.appendChild(anim);
+            setTimeout(() => anim.remove(), 1500);
+        }
+
+        function applyTheme(themeId) {
+            storeItems.forEach(item => iframeContainer.classList.remove(item.id));
+            iframeContainer.classList.add(themeId);
+        }
+
+        function equipTheme(themeId) {
+            equippedTheme = themeId;
+            localStorage.setItem('geekieEquipped', equippedTheme);
+            applyTheme(themeId);
+            renderStore();
+        }
+
+        function buyTheme(themeId, price) {
+            if (coins >= price) {
+                coins -= price;
+                ownedThemes.push(themeId);
+                localStorage.setItem('geekieThemes', JSON.stringify(ownedThemes));
+                updateCoinDisplay();
+                equipTheme(themeId);
+                alert('Tema comprado e equipado com sucesso!');
+            } else {
+                alert('Moedas insuficientes. Vá focar e estudar para ganhar mais!');
+            }
+        }
+
+        function renderStore() {
+            const storeGrid = document.getElementById('storeGrid');
+            if(!storeGrid) return;
+            storeGrid.innerHTML = '';
+
+            storeItems.forEach(item => {
+                const isOwned = ownedThemes.includes(item.id);
+                const isEquipped = equippedTheme === item.id;
+                
+                let buttonHtml = '';
+                if (isEquipped) {
+                    buttonHtml = `<button class="btn btn-outline w-full" disabled><i class="fa-solid fa-check"></i> Equipado</button>`;
+                } else if (isOwned) {
+                    buttonHtml = `<button class="btn btn-primary w-full" onclick="equipTheme('${item.id}')">Equipar</button>`;
+                } else {
+                    const canAfford = coins >= item.price;
+                    buttonHtml = `<button class="btn btn-gold w-full ${!canAfford ? 'btn-disabled' : ''}" 
+                                   onclick="${canAfford ? `buyTheme('${item.id}', ${item.price})` : ''}">
+                                   <i class="fa-solid fa-cart-shopping"></i> Comprar (${item.price} <i class="fa-solid fa-coins"></i>)
+                                  </button>`;
+                }
+
+                storeGrid.innerHTML += `
+                    <div class="store-item ${isEquipped ? item.id : ''}">
+                        <i class="fa-solid ${item.icon} preview-icon"></i>
+                        <h4>${item.name}</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); flex: 1;">${item.desc}</p>
+                        ${buttonHtml}
+                    </div>
+                `;
+            });
+        }
+
+        // Init Economy
+        updateCoinDisplay();
+        applyTheme(equippedTheme);
+        renderStore();
 
         // ================== POMODORO LOGIC ==================
         let timerInterval;
-        let timeLeft = 25 * 60; // 25 minutos
+        let timeLeft = 25 * 60;
         let isTimerRunning = false;
         let isBreak = false;
         let cycles = 0;
@@ -635,14 +892,15 @@
                     if (!isBreak) {
                         cycles++;
                         pomodoroCount.textContent = cycles;
+                        addCoins(50); // RECOMPENSA DE POMODORO
                         isBreak = true;
-                        timeLeft = 5 * 60; // 5 minutos de pausa
+                        timeLeft = 5 * 60;
                         timerMode.textContent = "Modo: Pausa Curta (5 min)";
                         timerMode.style.color = "var(--accent)";
-                        alert("Tempo de Foco concluído! Faça uma pausa de 5 minutos.");
+                        alert("Foco concluído! Você ganhou +50 Moedas! Faça uma pausa de 5 min.");
                     } else {
                         isBreak = false;
-                        timeLeft = 25 * 60; // Volta para 25 min
+                        timeLeft = 25 * 60;
                         timerMode.textContent = "Modo: Foco (25 min)";
                         timerMode.style.color = "var(--text-muted)";
                         alert("Pausa concluída! Hora de focar.");
@@ -670,7 +928,7 @@
             updateTimerDisplay();
         }
 
-        // ================== TO-DO LIST (LocalStorage) ==================
+        // ================== TO-DO LIST ==================
         const todoListElement = document.getElementById('todoList');
         const todoInput = document.getElementById('todoInput');
         let todos = JSON.parse(localStorage.getItem('geekieTodos')) || [];
@@ -697,16 +955,19 @@
             if (text) {
                 todos.push({ text, completed: false });
                 todoInput.value = '';
+                addCoins(5); // RECOMPENSA CRIAR TAREFA
                 renderTodos();
             }
         }
 
-        function handleTodoKeyPress(e) {
-            if (e.key === 'Enter') addTodo();
-        }
+        function handleTodoKeyPress(e) { if (e.key === 'Enter') addTodo(); }
 
         function toggleTodo(index) {
+            const wasCompleted = todos[index].completed;
             todos[index].completed = !todos[index].completed;
+            if (!wasCompleted && todos[index].completed) {
+                addCoins(10); // RECOMPENSA CONCLUIR TAREFA
+            }
             renderTodos();
         }
 
@@ -715,20 +976,16 @@
             renderTodos();
         }
 
-        // Init Todos
         renderTodos();
 
         // ================== FLASHCARDS LOGIC ==================
-        // Carrega do LocalStorage ou usa dados padrão se estiver vazio
         let flashcardsData = JSON.parse(localStorage.getItem('geekieFlashcards'));
         
         if (!flashcardsData || flashcardsData.length === 0) {
             flashcardsData = [
-                { front: "O que é a Mitocôndria?", back: "Organela responsável pela respiração celular e produção de energia (ATP)." },
-                { front: "Fórmula de Bhaskara", back: "x = (-b ± √(b² - 4ac)) / 2a" },
-                { front: "1ª Lei de Newton", back: "Inércia: Um corpo em repouso tende a permanecer em repouso, e um em movimento uniforme tende a manter seu estado, a menos que uma força atue sobre ele." }
+                { front: "O que é a Mitocôndria?", back: "Organela responsável pela respiração celular (energia)." }
             ];
-            saveFlashcards();
+            localStorage.setItem('geekieFlashcards', JSON.stringify(flashcardsData));
         }
         
         let currentCardIndex = 0;
@@ -737,132 +994,64 @@
         const cardBack = document.getElementById('cardBack');
         const cardCounter = document.getElementById('cardCounter');
 
-        function saveFlashcards() {
-            localStorage.setItem('geekieFlashcards', JSON.stringify(flashcardsData));
-        }
+        function saveFlashcards() { localStorage.setItem('geekieFlashcards', JSON.stringify(flashcardsData)); }
 
         function updateCardDisplay() {
             flashcardElement.classList.remove('is-flipped');
-            
             setTimeout(() => {
                 if (flashcardsData.length === 0) {
                     cardFront.textContent = "Nenhum flashcard.";
                     cardBack.textContent = "Adicione um novo acima!";
                     cardCounter.textContent = `0 / 0`;
                 } else {
-                    // Garante que o índice é válido
                     if (currentCardIndex >= flashcardsData.length) currentCardIndex = Math.max(0, flashcardsData.length - 1);
-                    
                     cardFront.textContent = flashcardsData[currentCardIndex].front;
                     cardBack.textContent = flashcardsData[currentCardIndex].back;
                     cardCounter.textContent = `${currentCardIndex + 1} / ${flashcardsData.length}`;
                 }
-            }, 150); // Espera a animação de desvirar
+            }, 150);
         }
 
-        function flipCard() {
-            if (flashcardsData.length > 0) {
-                flashcardElement.classList.toggle('is-flipped');
-            }
-        }
-
-        function nextCard() {
-            if (currentCardIndex < flashcardsData.length - 1) {
-                currentCardIndex++;
-                updateCardDisplay();
-            }
-        }
-
-        function prevCard() {
-            if (currentCardIndex > 0) {
-                currentCardIndex--;
-                updateCardDisplay();
-            }
-        }
+        function flipCard() { if (flashcardsData.length > 0) flashcardElement.classList.toggle('is-flipped'); }
+        function nextCard() { if (currentCardIndex < flashcardsData.length - 1) { currentCardIndex++; updateCardDisplay(); } }
+        function prevCard() { if (currentCardIndex > 0) { currentCardIndex--; updateCardDisplay(); } }
 
         function addFlashcard() {
             const frontInput = document.getElementById('newCardFront');
             const backInput = document.getElementById('newCardBack');
-            const frontText = frontInput.value.trim();
-            const backText = backInput.value.trim();
-
-            if (frontText && backText) {
-                flashcardsData.push({ front: frontText, back: backText });
+            if (frontInput.value.trim() && backInput.value.trim()) {
+                flashcardsData.push({ front: frontInput.value.trim(), back: backInput.value.trim() });
                 saveFlashcards();
-                
-                // Limpa os inputs
-                frontInput.value = '';
-                backInput.value = '';
-                
-                // Vai para o card recém adicionado
+                addCoins(5); // RECOMPENSA CRIAR FLASHCARD
+                frontInput.value = ''; backInput.value = '';
                 currentCardIndex = flashcardsData.length - 1;
                 updateCardDisplay();
-            } else {
-                alert("Por favor, preencha a frente e o verso do flashcard.");
-            }
+            } else alert("Preencha frente e verso!");
         }
 
         function deleteCurrentCard() {
             if (flashcardsData.length === 0) return;
-            
-            if(confirm("Tem certeza que deseja excluir este flashcard?")) {
+            if(confirm("Excluir este flashcard?")) {
                 flashcardsData.splice(currentCardIndex, 1);
                 saveFlashcards();
-                
-                // Ajusta o índice se apagou o último
-                if (currentCardIndex >= flashcardsData.length) {
-                    currentCardIndex = Math.max(0, flashcardsData.length - 1);
-                }
-                
+                if (currentCardIndex >= flashcardsData.length) currentCardIndex = Math.max(0, flashcardsData.length - 1);
                 updateCardDisplay();
             }
         }
 
-        // Init Flashcards
         updateCardDisplay();
 
-        // ================== AMBIENT AUDIO LOGIC ==================
-        const audios = {
-            noise: document.getElementById('audio-noise'),
-            rain: document.getElementById('audio-rain')
-        };
-        const audioBtns = {
-            noise: document.getElementById('btn-noise'),
-            rain: document.getElementById('btn-rain')
-        };
+        // ================== AMBIENT AUDIO ==================
+        const audios = { noise: document.getElementById('audio-noise'), rain: document.getElementById('audio-rain') };
+        const audioBtns = { noise: document.getElementById('btn-noise'), rain: document.getElementById('btn-rain') };
 
         function toggleAudio(type) {
-            const audio = audios[type];
-            const btn = audioBtns[type];
-
-            if (audio.paused) {
-                // Tocar
-                audio.play();
-                btn.classList.add('active');
-            } else {
-                // Pausar
-                audio.pause();
-                btn.classList.remove('active');
-            }
+            if (audios[type].paused) { audios[type].play(); audioBtns[type].classList.add('active'); } 
+            else { audios[type].pause(); audioBtns[type].classList.remove('active'); }
         }
 
-        function changeVolume(val) {
-            Object.values(audios).forEach(audio => {
-                audio.volume = val;
-            });
-        }
-        
-        // Init volume
+        function changeVolume(val) { Object.values(audios).forEach(audio => audio.volume = val); }
         changeVolume(0.5);
-
-        // Notificação de boas-vindas no console (mantendo o estilo original)
-        console.log(`%c
-╔══════════════════════════════════════════════════╗
-║   🚀 GEEKIE ONE ULTRA MASTER v7.0 STUDY HUB      ║
-║   Foco | Flashcards | Tarefas | Pomodoro | IA    ║
-╠══════════════════════════════════════════════════╣
-║  Sistema Iniciado com Sucesso. Bons estudos!     ║
-╚══════════════════════════════════════════════════╝`, "color: #00ff88; font-weight: bold;");
 
     </script>
 </body>
