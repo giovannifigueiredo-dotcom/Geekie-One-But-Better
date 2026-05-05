@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geekie One Ultra v7.1 - Study Hub</title>
+    <title>Geekie One Ultra v7.2 - Study Hub</title>
     <!-- Fontes Modernas -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <!-- Ícones -->
@@ -338,6 +338,26 @@
         .store-item i.preview-icon { font-size: 3rem; color: var(--text-muted); margin-bottom: 10px; }
         .store-price { color: var(--gold); font-weight: bold; font-size: 1.2rem; }
 
+        /* --- CARACTERES ÚTEIS --- */
+        .char-category { font-size: 1.1rem; color: var(--primary); margin: 25px 0 10px 0; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        .char-category:first-of-type { margin-top: 10px; }
+        .char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .char-btn { 
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; 
+            font-size: 1.4rem; color: var(--text-main); cursor: pointer; transition: var(--transition); 
+            height: 60px; display: flex; align-items: center; justify-content: center; font-family: 'Fira Code', monospace;
+        }
+        .char-btn:hover { background: rgba(0, 212, 255, 0.2); border-color: var(--accent); color: var(--accent); transform: scale(1.05); }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); 
+            background: var(--success); color: var(--bg-base); padding: 12px 24px; border-radius: 8px; 
+            font-weight: bold; opacity: 0; transition: all 0.3s ease; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
         /* --- DEV LOG (TIMELINE) --- */
         .timeline {
             border-left: 3px solid rgba(0, 255, 136, 0.3);
@@ -451,7 +471,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="brand">
             <i class="fa-solid fa-graduation-cap"></i>
-            Geekie Ultra <span style="font-size:0.6em; background:var(--primary); color:#000; padding:2px 5px; border-radius:4px; margin-left:auto;">v7.1</span>
+            Geekie Ultra <span style="font-size:0.6em; background:var(--primary); color:#000; padding:2px 5px; border-radius:4px; margin-left:auto;">v7.2</span>
         </div>
         <nav class="nav-menu">
             <div class="nav-item active" onclick="switchTab('tab-geekie', this)">
@@ -469,7 +489,11 @@
             <div class="nav-item" onclick="switchTab('tab-ambient', this)">
                 <i class="fa-solid fa-headphones"></i> Sons Ambiente
             </div>
-            <!-- NOVA ABA DEV LOG -->
+            <!-- NOVA ABA: CARACTERES -->
+            <div class="nav-item" onclick="switchTab('tab-chars', this)">
+                <i class="fa-solid fa-keyboard"></i> Caracteres Úteis
+            </div>
+            
             <div class="nav-item" onclick="switchTab('tab-devlog', this)" style="margin-top: 20px; border-top: 1px solid var(--border); border-radius: 0; padding-top: 15px;">
                 <i class="fa-solid fa-clock-rotate-left"></i> Dev Log
             </div>
@@ -615,7 +639,91 @@
             </div>
         </section>
 
-        <!-- TAB 6: DEV LOG (NOVA) -->
+        <!-- TAB 6: CARACTERES ÚTEIS (NOVO) -->
+        <section id="tab-chars" class="tab-content">
+            <div class="glass-card w-full" style="max-width: 900px; margin: 0 auto;">
+                <h3><i class="fa-solid fa-keyboard"></i> Teclado de Caracteres Úteis</h3>
+                <p style="color: var(--text-muted); margin-bottom: 10px;">
+                    Clique em qualquer símbolo para copiar automaticamente. Ideal para equações, física e anotações.
+                </p>
+
+                <!-- Matemática Básica & Operadores -->
+                <h4 class="char-category">Matemática Básica e Operadores</h4>
+                <div class="char-grid">
+                    <button class="char-btn" onclick="copyChar('±')" title="Mais ou Menos">±</button>
+                    <button class="char-btn" onclick="copyChar('×')" title="Multiplicação">×</button>
+                    <button class="char-btn" onclick="copyChar('÷')" title="Divisão">÷</button>
+                    <button class="char-btn" onclick="copyChar('≈')" title="Aproximadamente">≈</button>
+                    <button class="char-btn" onclick="copyChar('≠')" title="Diferente">≠</button>
+                    <button class="char-btn" onclick="copyChar('≤')" title="Menor ou Igual">≤</button>
+                    <button class="char-btn" onclick="copyChar('≥')" title="Maior ou Igual">≥</button>
+                    <button class="char-btn" onclick="copyChar('∞')" title="Infinito">∞</button>
+                    <button class="char-btn" onclick="copyChar('√')" title="Raiz Quadrada">√</button>
+                    <button class="char-btn" onclick="copyChar('∛')" title="Raiz Cúbica">∛</button>
+                    <button class="char-btn" onclick="copyChar('°')" title="Graus">°</button>
+                    <button class="char-btn" onclick="copyChar('²')" title="Ao Quadrado">²</button>
+                    <button class="char-btn" onclick="copyChar('³')" title="Ao Cubo">³</button>
+                    <button class="char-btn" onclick="copyChar('½')" title="Metade">½</button>
+                    <button class="char-btn" onclick="copyChar('¼')" title="Um Quarto">¼</button>
+                </div>
+
+                <!-- Lógica & Conjuntos -->
+                <h4 class="char-category">Álgebra, Lógica e Conjuntos</h4>
+                <div class="char-grid">
+                    <button class="char-btn" onclick="copyChar('∀')" title="Para Todo">∀</button>
+                    <button class="char-btn" onclick="copyChar('∃')" title="Existe">∃</button>
+                    <button class="char-btn" onclick="copyChar('∈')" title="Pertence">∈</button>
+                    <button class="char-btn" onclick="copyChar('∉')" title="Não Pertence">∉</button>
+                    <button class="char-btn" onclick="copyChar('⊂')" title="Contém (Próprio)">⊂</button>
+                    <button class="char-btn" onclick="copyChar('⊃')" title="Está Contido (Próprio)">⊃</button>
+                    <button class="char-btn" onclick="copyChar('∪')" title="União">∪</button>
+                    <button class="char-btn" onclick="copyChar('∩')" title="Interseção">∩</button>
+                    <button class="char-btn" onclick="copyChar('∅')" title="Vazio">∅</button>
+                    <button class="char-btn" onclick="copyChar('∫')" title="Integral">∫</button>
+                    <button class="char-btn" onclick="copyChar('∑')" title="Somatório">∑</button>
+                    <button class="char-btn" onclick="copyChar('∏')" title="Produtório">∏</button>
+                    <button class="char-btn" onclick="copyChar('∴')" title="Portanto">∴</button>
+                </div>
+
+                <!-- Setas -->
+                <h4 class="char-category">Setas Direcionais e Vetores</h4>
+                <div class="char-grid">
+                    <button class="char-btn" onclick="copyChar('→')" title="Direita">→</button>
+                    <button class="char-btn" onclick="copyChar('←')" title="Esquerda">←</button>
+                    <button class="char-btn" onclick="copyChar('↑')" title="Cima">↑</button>
+                    <button class="char-btn" onclick="copyChar('↓')" title="Baixo">↓</button>
+                    <button class="char-btn" onclick="copyChar('↔')" title="Dupla">↔</button>
+                    <button class="char-btn" onclick="copyChar('↕')" title="Vertical Dupla">↕</button>
+                    <button class="char-btn" onclick="copyChar('⇒')" title="Implica">⇒</button>
+                    <button class="char-btn" onclick="copyChar('⇔')" title="Equivalente">⇔</button>
+                    <button class="char-btn" onclick="copyChar('⇄')" title="Troca">⇄</button>
+                    <button class="char-btn" onclick="copyChar('↗')" title="Diagonal">↗</button>
+                    <button class="char-btn" onclick="copyChar('↘')" title="Diagonal">↘</button>
+                </div>
+
+                <!-- Alfabeto Grego (Física/Mat) -->
+                <h4 class="char-category">Alfabeto Grego (Física & Geometria)</h4>
+                <div class="char-grid">
+                    <button class="char-btn" onclick="copyChar('α')" title="Alfa">α</button>
+                    <button class="char-btn" onclick="copyChar('β')" title="Beta">β</button>
+                    <button class="char-btn" onclick="copyChar('γ')" title="Gama">γ</button>
+                    <button class="char-btn" onclick="copyChar('Δ')" title="Delta (Maiúsculo)">Δ</button>
+                    <button class="char-btn" onclick="copyChar('δ')" title="Delta (Minúsculo)">δ</button>
+                    <button class="char-btn" onclick="copyChar('ε')" title="Epsilon">ε</button>
+                    <button class="char-btn" onclick="copyChar('θ')" title="Teta">θ</button>
+                    <button class="char-btn" onclick="copyChar('λ')" title="Lambda">λ</button>
+                    <button class="char-btn" onclick="copyChar('μ')" title="Mi (Micro)">μ</button>
+                    <button class="char-btn" onclick="copyChar('π')" title="Pi">π</button>
+                    <button class="char-btn" onclick="copyChar('ρ')" title="Rô">ρ</button>
+                    <button class="char-btn" onclick="copyChar('σ')" title="Sigma">σ</button>
+                    <button class="char-btn" onclick="copyChar('φ')" title="Fi">φ</button>
+                    <button class="char-btn" onclick="copyChar('Ω')" title="Ômega">Ω</button>
+                    <button class="char-btn" onclick="copyChar('ω')" title="Ômega (Minúsculo)">ω</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: DEV LOG -->
         <section id="tab-devlog" class="tab-content">
             <div class="glass-card w-full" style="max-width: 900px; margin: 0 auto;">
                 <h3><i class="fa-solid fa-laptop-code"></i> Developer Changelog</h3>
@@ -624,12 +732,26 @@
                 </p>
 
                 <div class="timeline">
+                    <!-- Update v7.2 -->
+                    <div class="timeline-item">
+                        <div class="version-header">
+                            <span class="version-tag">v7.2.0</span>
+                            <h3>Aba de Caracteres & UI Premium</h3>
+                            <span class="version-date">Atualização Recente</span>
+                        </div>
+                        <ul>
+                            <li><strong>Nova Aba:</strong> "Caracteres Úteis" adicionada ao menu lateral.</li>
+                            <li><strong>Feature:</strong> Teclado virtual com +50 símbolos matemáticos, lógicos, setas e alfabeto grego.</li>
+                            <li><strong>Interação:</strong> Sistema "Click to Copy" (Cópia em 1 clique).</li>
+                            <li><strong>UI/UX:</strong> Implementado sistema de notificação "Toast" animada verde de confirmação ao copiar, bloqueando alertas nativos do navegador.</li>
+                        </ul>
+                    </div>
+
                     <!-- Update v7.1 -->
                     <div class="timeline-item">
                         <div class="version-header">
                             <span class="version-tag">v7.1.0</span>
                             <h3>Gamificação & Dev Log</h3>
-                            <span class="version-date">Atualização Recente</span>
                         </div>
                         <ul>
                             <li><strong>Implementado:</strong> Sistema de economia virtual (Geekie Coins).</li>
@@ -649,20 +771,7 @@
                         <ul>
                             <li><strong>Melhoria:</strong> Sistema de Flashcards 3D agora possui funcionalidade CRUD.</li>
                             <li><strong>Implementado:</strong> Inputs de criação de novos Flashcards pela interface.</li>
-                            <li><strong>Implementado:</strong> Exclusão segura de Flashcards em visualização.</li>
-                            <li><strong>Sistema:</strong> Integração completa com LocalStorage para salvar os cards do usuário offline.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Update v7.0.1 -->
-                    <div class="timeline-item">
-                        <div class="version-header">
-                            <span class="version-tag">v7.0.1</span>
-                            <h3>Fix de Segurança (Iframe)</h3>
-                        </div>
-                        <ul>
-                            <li><strong>Correção:</strong> Bypass do bloqueio `X-Frame-Options` do site original.</li>
-                            <li><strong>Migração:</strong> Iframe redirecionado para o proxy seguro no Pages (dx1website).</li>
+                            <li><strong>Sistema:</strong> Integração completa com LocalStorage.</li>
                         </ul>
                     </div>
 
@@ -675,24 +784,7 @@
                         <ul>
                             <li><strong>Design:</strong> Refatoração completa da UI para o estilo "Glassmorphism" Dark Mode.</li>
                             <li><strong>Feature:</strong> Modo Zen (Tela cheia imersiva).</li>
-                            <li><strong>Feature:</strong> Pomodoro Inteligente com alerta sonoro e contagem de ciclos.</li>
-                            <li><strong>Feature:</strong> Gerenciador de Metas (To-Do List) persistente no navegador.</li>
-                            <li><strong>Feature:</strong> Frequências de Foco (Player de Ruído Marrom e Chuva).</li>
-                            <li><strong>Feature:</strong> Revisão Ativa (Primeira versão visual dos Flashcards 3D).</li>
-                        </ul>
-                    </div>
-
-                    <!-- Update v6.0 -->
-                    <div class="timeline-item old-version">
-                        <div class="version-header">
-                            <span class="version-tag" style="background: rgba(148, 163, 184, 0.2); color: var(--text-muted);">v6.0.0</span>
-                            <h3 style="color: var(--text-muted);">Geekie Ultra Master Original</h3>
-                        </div>
-                        <ul>
-                            <li>Dashboard Original com 9 abas.</li>
-                            <li>Integração básica do Iframe Geekie One.</li>
-                            <li>Sistema IA Tutor (Estrutura base).</li>
-                            <li>Sistema de Conquistas (Badges originais).</li>
+                            <li><strong>Feature:</strong> Pomodoro Inteligente, Tarefas e Frequências de Foco.</li>
                         </ul>
                     </div>
                 </div>
@@ -703,6 +795,9 @@
 
     <!-- Áudio de notificação do Pomodoro -->
     <audio id="alarmSound" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_c6ccf3232f.mp3?filename=bell-ringing-05-43026.mp3" preload="auto"></audio>
+
+    <!-- Componente Toast (Notificação de cópia) -->
+    <div id="copyToast" class="toast"><i class="fa-solid fa-check"></i> Copiado!</div>
 
     <script>
         // ================== CLOCK LOGIC ==================
@@ -1052,6 +1147,43 @@
 
         function changeVolume(val) { Object.values(audios).forEach(audio => audio.volume = val); }
         changeVolume(0.5);
+
+        // ================== COPY CHARACTERS LOGIC ==================
+        function copyChar(char) {
+            const fallbackCopy = (text) => {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast(`Copiado: ${text}`);
+                } catch (err) {
+                    console.error('Erro ao copiar', err);
+                }
+                document.body.removeChild(textArea);
+            };
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(char)
+                    .then(() => showToast(`Copiado: ${char}`))
+                    .catch(() => fallbackCopy(char));
+            } else {
+                fallbackCopy(char);
+            }
+        }
+
+        let toastTimeout;
+        function showToast(msg) {
+            const toast = document.getElementById('copyToast');
+            toast.innerHTML = `<i class="fa-solid fa-check"></i> ${msg}`;
+            toast.classList.add('show');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
 
     </script>
 </body>
