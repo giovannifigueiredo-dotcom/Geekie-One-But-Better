@@ -277,6 +277,72 @@
             100% { border-color: #00ff00; box-shadow: 0 0 15px #00ff00; transform: translate(0); }
         }
 
+        .theme-aurora {
+            border: 2px solid #00d4ff !important;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(123, 44, 191, 0.1)) !important;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), inset 0 0 20px rgba(123, 44, 191, 0.2) !important;
+            animation: auroraShift 4s ease-in-out infinite;
+        }
+        @keyframes auroraShift {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), inset 0 0 20px rgba(123, 44, 191, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(123, 44, 191, 0.4), inset 0 0 30px rgba(0, 212, 255, 0.3); }
+        }
+
+        .theme-sunset {
+            border: 2px solid #ff6b35 !important;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 182, 93, 0.1)) !important;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3) !important;
+            animation: sunsetGlow 3s ease-in-out infinite;
+        }
+        @keyframes sunsetGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 107, 53, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(255, 182, 93, 0.4); }
+        }
+
+        .theme-ocean {
+            border: 2px solid #00d4ff !important;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 150, 200, 0.05)) !important;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.25) !important;
+            animation: oceanWave 6s ease-in-out infinite;
+        }
+        @keyframes oceanWave {
+            0%, 100% { transform: translateY(0px); box-shadow: 0 0 20px rgba(0, 212, 255, 0.25); }
+            50% { transform: translateY(-5px); box-shadow: 0 0 30px rgba(0, 212, 255, 0.4); }
+        }
+
+        .theme-forest {
+            border: 2px solid #4ade80 !important;
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.08), rgba(34, 197, 94, 0.08)) !important;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.2) !important;
+            animation: forestGlow 5s ease-in-out infinite;
+        }
+        @keyframes forestGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(74, 222, 128, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(34, 197, 94, 0.3); }
+        }
+
+        .theme-crystal {
+            border: 2px solid #a78bfa !important;
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(168, 85, 247, 0.1)) !important;
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.3), inset 0 0 15px rgba(168, 85, 247, 0.15) !important;
+            animation: crystalShine 2s ease-in-out infinite;
+        }
+        @keyframes crystalShine {
+            0%, 100% { box-shadow: 0 0 20px rgba(167, 139, 250, 0.3), inset 0 0 15px rgba(168, 85, 247, 0.15); }
+            50% { box-shadow: 0 0 30px rgba(167, 139, 250, 0.5), inset 0 0 20px rgba(168, 85, 247, 0.25); }
+        }
+
+        .theme-fire {
+            border: 2px solid #ff4500 !important;
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.1), rgba(255, 140, 0, 0.1)) !important;
+            box-shadow: 0 0 25px rgba(255, 69, 0, 0.4) !important;
+            animation: fireBurn 1.5s ease-in-out infinite;
+        }
+        @keyframes fireBurn {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 69, 0, 0.3); }
+            50% { box-shadow: 0 0 35px rgba(255, 140, 0, 0.5); }
+        }
+
         /* ================= CARDS & WIDGETS ================= */
         .grid-dashboard {
             display: grid;
@@ -766,6 +832,108 @@
                     <button class="char-btn" onclick="copyChar('Ω')" title="Ômega">Ω</button>
                     <button class="char-btn" onclick="copyChar('ω')" title="Ômega (Minúsculo)">ω</button>
                 </div>
+
+                <!-- Química & Elementos -->
+                <h4 class="char-category">Química e Elementos</h4>
+                <div class="char-grid">
+                    <button class="char-btn" onclick="copyChar('H₂O')" title="Água">H₂O</button>
+                    <button class="char-btn" onclick="copyChar('CO₂')" title="Dióxido de Carbono">CO₂</button>
+                    <button class="char-btn" onclick="copyChar('O₂')" title="Oxigênio">O₂</button>
+                    <button class="char-btn" onclick="copyChar('N₂')" title="Nitrogênio">N₂</button>
+                    <button class="char-btn" onclick="copyChar('H₂SO₄')" title="Ácido Sulfúrico">H₂SO₄</button>
+                    <button class="char-btn" onclick="copyChar('NaCl')" title="Cloreto de Sódio">NaCl</button>
+                    <button class="char-btn" onclick="copyChar('→')" title="Reação Química">→</button>
+                    <button class="char-btn" onclick="copyChar('⇌')" title="Equilíbrio">⇌</button>
+                    <button class="char-btn" onclick="copyChar('ΔH')" title="Variação de Entalpia">ΔH</button>
+                    <button class="char-btn" onclick="copyChar('ΔS')" title="Variação de Entropia">ΔS</button>
+                    <button class="char-btn" onclick="copyChar('Kₐ')" title="Constante de Acidez">Kₐ</button>
+                    <button class="char-btn" onclick="copyChar('pH')" title="Potencial Hidrogeniônico">pH</button>
+                </div>
+
+                <!-- Física & Energia -->
+                <h4 class="char-category">Física e Energia</h4>
+                <div class="char-grid">
+                    <button class="char-btn" onclick="copyChar('E=mc²')" title="Energia de Einstein">E=mc²</button>
+                    <button class="char-btn" onclick="copyChar('F=ma')" title="Segunda Lei de Newton">F=ma</button>
+                    <button class="char-btn" onclick="copyChar('v=Δs/Δt')" title="Velocidade">v=Δs/Δt</button>
+                    <button class="char-btn" onclick="copyChar('a=Δv/Δt')" title="Aceleração">a=Δv/Δt</button>
+                    <button class="char-btn" onclick="copyChar('P=F/A')" title="Pressão">P=F/A</button>
+                    <button class="char-btn" onclick="copyChar('W=F·d')" title="Trabalho">W=F·d</button>
+                    <button class="char-btn" onclick="copyChar('Ec=½mv²')" title="Energia Cinética">Ec=½mv²</button>
+                    <button class="char-btn" onclick="copyChar('Ep=mgh')" title="Energia Potencial">Ep=mgh</button>
+                    <button class="char-btn" onclick="copyChar('λ')" title="Comprimento de Onda">λ</button>
+                    <button class="char-btn" onclick="copyChar('ν')" title="Frequência">ν</button>
+                    <button class="char-btn" onclick="copyChar('c')" title="Velocidade da Luz">c</button>
+                    <button class="char-btn" onclick="copyChar('h')" title="Constante de Planck">h</button>
+                </div>
+
+                <!-- Biologia & Genética -->
+                <h4 class="char-category">Biologia e Genética</h4>
+                <div class="char-grid">
+                    <button class="char-btn" onclick="copyChar('DNA')" title="Ácido Desoxirribonucleico">DNA</button>
+                    <button class="char-btn" onclick="copyChar('RNA')" title="Ácido Ribonucleico">RNA</button>
+                    <button class="char-btn" onclick="copyChar('ATP')" title="Trifosfato de Adenosina">ATP</button>
+                    <button class="char-btn" onclick="copyChar('ADP')" title="Difosfato de Adenosina">ADP</button>
+                    <button class="char-btn" onclick="copyChar('♀')" title="Fêmea">♀</button>
+                    <button class="char-btn" onclick="copyChar('♂')" title="Macho">♂</button>
+                    <button class="char-btn" onclick="copyChar('×')" title="Cruzamento Genético">×</button>
+                    <button class="char-btn" onclick="copyChar('→')" title="Evolução">→</button>
+                    <button class="char-btn" onclick="copyChar('∑')" title="Somatório (População)">∑</button>
+                    <button class="char-btn" onclick="copyChar('μ')" title="Micro (Microrganismo)">μ</button>
+                    <button class="char-btn" onclick="copyChar('Ω')" title="Ômega (Biodiversidade)">Ω</button>
+                    <button class="char-btn" onclick="copyChar('±')" title="Variação Genética">±</button>
+                </div>
+
+                <!-- Geometria & Trigonometria -->
+                <h4 class="char-category">Geometria e Trigonometria</h4>
+                <div class="char-grid">
+                    <button class="char-btn" onclick="copyChar('∠')" title="Ângulo">∠</button>
+                    <button class="char-btn" onclick="copyChar('⊥')" title="Perpendicular">⊥</button>
+                    <button class="char-btn" onclick="copyChar('∥')" title="Paralelo">∥</button>
+                    <button class="char-btn" onclick="copyChar('≅')" title="Congruente">≅</button>
+                    <button class="char-btn" onclick="copyChar('△')" title="Triângulo">△</button>
+                    <button class="char-btn" onclick="copyChar('◇')" title="Losango">◇</button>
+                    <button class="char-btn" onclick="copyChar('○')" title="Círculo">○</button>
+                    <button class="char-btn" onclick="copyChar('sin')" title="Seno">sin</button>
+                    <button class="char-btn" onclick="copyChar('cos')" title="Cosseno">cos</button>
+                    <button class="char-btn" onclick="copyChar('tan')" title="Tangente">tan</button>
+                    <button class="char-btn" onclick="copyChar('cot')" title="Cotangente">cot</button>
+                    <button class="char-btn" onclick="copyChar('sec')" title="Secante">sec</button>
+                </div>
+
+                <!-- Estatística & Probabilidade -->
+                <h4 class="char-category">Estatística e Probabilidade</h4>
+                <div class="char-grid">
+                    <button class="char-btn" onclick="copyChar('μ')" title="Média">μ</button>
+                    <button class="char-btn" onclick="copyChar('σ')" title="Desvio Padrão">σ</button>
+                    <button class="char-btn" onclick="copyChar('σ²')" title="Variância">σ²</button>
+                    <button class="char-btn" onclick="copyChar('∑')" title="Somatório">∑</button>
+                    <button class="char-btn" onclick="copyChar('n!')" title="Fatorial">n!</button>
+                    <button class="char-btn" onclick="copyChar('C')" title="Combinação">C</button>
+                    <button class="char-btn" onclick="copyChar('A')" title="Arranjo">A</button>
+                    <button class="char-btn" onclick="copyChar('P')" title="Probabilidade">P</button>
+                    <button class="char-btn" onclick="copyChar('≤')" title="Menor ou Igual">≤</button>
+                    <button class="char-btn" onclick="copyChar('≥')" title="Maior ou Igual">≥</button>
+                    <button class="char-btn" onclick="copyChar('∈')" title="Pertence">∈</button>
+                    <button class="char-btn" onclick="copyChar('∉')" title="Não Pertence">∉</button>
+                </div>
+
+                <!-- Símbolos Especiais & Acentos -->
+                <h4 class="char-category">Símbolos Especiais e Acentos</h4>
+                <div class="char-grid">
+                    <button class="char-btn" onclick="copyChar('©')" title="Copyright">©</button>
+                    <button class="char-btn" onclick="copyChar('®')" title="Marca Registrada">®</button>
+                    <button class="char-btn" onclick="copyChar('™')" title="Trade Mark">™</button>
+                    <button class="char-btn" onclick="copyChar('€')" title="Euro">€</button>
+                    <button class="char-btn" onclick="copyChar('£')" title="Libra">£</button>
+                    <button class="char-btn" onclick="copyChar('¥')" title="Iene">¥</button>
+                    <button class="char-btn" onclick="copyChar('§')" title="Seção">§</button>
+                    <button class="char-btn" onclick="copyChar('¶')" title="Parágrafo">¶</button>
+                    <button class="char-btn" onclick="copyChar('†')" title="Adaga">†</button>
+                    <button class="char-btn" onclick="copyChar('‡')" title="Dupla Adaga">‡</button>
+                    <button class="char-btn" onclick="copyChar('•')" title="Ponto">•</button>
+                    <button class="char-btn" onclick="copyChar('…')" title="Reticências">…</button>
+                </div>
             </div>
         </section>
 
@@ -778,12 +946,33 @@
                 </p>
 
                 <div class="timeline">
+                    <!-- Update v7.4 -->
+                    <div class="timeline-item">
+                        <div class="version-header">
+                            <span class="version-tag">v7.4.0</span>
+                            <h3>Expansao de Caracteres & Temas Premium</h3>
+                            <span class="version-date">Atualização Recente</span>
+                        </div>
+                        <ul>
+                            <li><strong>Aba de Caracteres Expandida:</strong> Adicionadas 6 novas categorias com 72 novos simbolos cientificos.</li>
+                            <li><strong>Quimica & Elementos:</strong> Formulas quimicas (H2O, CO2, H2SO4), reacoes e constantes (pH, Ka).</li>
+                            <li><strong>Fisica & Energia:</strong> Equacoes fundamentais (E=mc2, F=ma, v=Δs/Δt) e constantes fisicas (λ, ν, c, h).</li>
+                            <li><strong>Biologia & Genetica:</strong> Simbolos biologicos (DNA, RNA, ATP, ADP, ♀, ♂) e notacoes evolutivas.</li>
+                            <li><strong>Geometria & Trigonometria:</strong> Operadores geometricos (∠, ⊥, ∥, ≅) e funcoes trigonometricas (sin, cos, tan).</li>
+                            <li><strong>Estatistica & Probabilidade:</strong> Simbolos estatisticos (μ, σ, σ2, n!, C, A, P) e operadores de conjuntos.</li>
+                            <li><strong>Simbolos Especiais:</strong> Moedas (€, £, ¥), direitos autorais (©, ®, ™) e pontuacao avancada.</li>
+                            <li><strong>6 Novos Temas Visuais:</strong> Aurora Boreal (150), Por do Sol (120), Oceano Profundo (180), Floresta Noturna (140), Cristal Cibernetico (250) e Fogo Infernal (200).</li>
+                            <li><strong>Animacoes Tematicas:</strong> Cada tema possui animacoes unicas (gradientes, pulsos, ondas, brilhos).</li>
+                            <li><strong>Sistema de Dev Log em Tempo Real:</strong> Registra automaticamente todas as acoes do usuario (temas aplicados, caracteres copiados, etc).</li>
+                            <li><strong>Precos Variados:</strong> Temas de 100 a 500 moedas, permitindo progressao de gamificacao.</li>
+                        </ul>
+                    </div>
+
                     <!-- Update v7.3 -->
                     <div class="timeline-item">
                         <div class="version-header">
                             <span class="version-tag">v7.3.0</span>
                             <h3>Bloco de Notas Avançado</h3>
-                            <span class="version-date">Atualização Recente</span>
                         </div>
                         <ul>
                             <li><strong>Nova Aba:</strong> "Bloco de Notas" adicionada com gerenciamento de múltiplas notas.</li>
@@ -915,7 +1104,13 @@
             { id: 'theme-default', name: 'Original', price: 0, icon: 'fa-square', desc: 'Borda simples, limpo.' },
             { id: 'theme-neon', name: 'Neon Pulse', price: 100, icon: 'fa-bolt', desc: 'Borda azul brilhante que pulsa suavemente.' },
             { id: 'theme-rgb', name: 'Chroma RGB', price: 300, icon: 'fa-palette', desc: 'Tema gamer que muda de cor constantemente.' },
-            { id: 'theme-matrix', name: 'Hacker Matrix', price: 500, icon: 'fa-terminal', desc: 'Efeito glitch verde cibernético.' }
+            { id: 'theme-matrix', name: 'Hacker Matrix', price: 500, icon: 'fa-terminal', desc: 'Efeito glitch verde cibernético.' },
+            { id: 'theme-aurora', name: 'Aurora Boreal', price: 150, icon: 'fa-wand-magic-sparkles', desc: 'Gradiente suave com cores do céu noturno.' },
+            { id: 'theme-sunset', name: 'Pôr do Sol', price: 120, icon: 'fa-sun', desc: 'Tons quentes de laranja e rosa em transição.' },
+            { id: 'theme-ocean', name: 'Oceano Profundo', price: 180, icon: 'fa-water', desc: 'Azuis e turquesas com efeito de ondas.' },
+            { id: 'theme-forest', name: 'Floresta Noturna', price: 140, icon: 'fa-leaf', desc: 'Verdes e marrons com efeito natural.' },
+            { id: 'theme-crystal', name: 'Cristal Cibernético', price: 250, icon: 'fa-gem', desc: 'Brilho cristalino com reflexão de luz.' },
+            { id: 'theme-fire', name: 'Fogo Infernal', price: 200, icon: 'fa-fire', desc: 'Vermelhos e laranjas com efeito de chama.' }
         ];
 
         const coinCountElement = document.getElementById('coinCount');
@@ -947,6 +1142,9 @@
         function applyTheme(themeId) {
             storeItems.forEach(item => iframeContainer.classList.remove(item.id));
             iframeContainer.classList.add(themeId);
+            
+            // Log da aplicação de tema
+            addDevLog(`Tema aplicado: ${storeItems.find(t => t.id === themeId)?.name || 'Desconhecido'}`, 'theme');
         }
 
         function equipTheme(themeId) {
