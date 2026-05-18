@@ -524,6 +524,10 @@
 <div id="appToast" class="toast"><i class="fa-solid fa-check"></i> <span>Ação Realizada!</span></div>
 
 <script>
+// ===================== DATA DECLARATIONS (must be first to avoid TDZ errors) =====================
+let todos = JSON.parse(localStorage.getItem('geekieTodos')) || [];
+let todoFilter = 'all';
+
 // ===================== CLOCK =====================
 function updateClock() { document.getElementById('realTimeClock').textContent = new Date().toLocaleTimeString('pt-BR'); }
 setInterval(updateClock, 1000); updateClock();
@@ -690,7 +694,7 @@ const noteFonts = [
 ];
 let currentNoteFont = localStorage.getItem('geekieNoteFont') || 'Poppins';
 function buildNoteFontPicker() {
-    const picker = document.getElementById('noteFontPicker'); picker.innerHTML = '';
+    const picker = document.getElementById('noteFontPicker'); if (!picker) return; picker.innerHTML = '';
     noteFonts.forEach(f => {
         const btn = document.createElement('button');
         btn.className = `note-font-btn ${currentNoteFont === f.family ? 'active' : ''}`;
@@ -710,33 +714,31 @@ buildNoteFontPicker();
 // ===================== NOTAS =====================
 let savedNotes = JSON.parse(localStorage.getItem('geekieNotes')) || [];
 let currentNoteId = null;
-const noteSelect = document.getElementById('noteSelect'), noteTitleInput = document.getElementById('noteTitle'), noteContentInput = document.getElementById('noteContent');
-function renderNotesDropdown() { noteSelect.innerHTML = '<option value="new">+ Nova Anotacao...</option>'; savedNotes.forEach(note => { const opt = document.createElement('option'); opt.value = note.id; opt.textContent = note.title || 'Nota sem titulo'; if (note.id === currentNoteId) opt.selected = true; noteSelect.appendChild(opt); }); }
-function loadSelectedNote() { const id = noteSelect.value; if (id === 'new') { currentNoteId = null; noteTitleInput.value = ''; noteContentInput.value = ''; } else { const n = savedNotes.find(n => n.id == id); if (n) { currentNoteId = n.id; noteTitleInput.value = n.title; noteContentInput.value = n.content; } } }
-function saveNote() { const title = noteTitleInput.value.trim() || 'Nota sem titulo'; const content = noteContentInput.value; if (!content.trim() && !noteTitleInput.value.trim()) { showToast('A nota esta vazia!', true); return; } if (currentNoteId === null) { const nn = { id: Date.now().toString(), title, content, date: new Date().toLocaleDateString() }; savedNotes.push(nn); currentNoteId = nn.id; showToast('Nova anotacao salva!'); } else { const idx = savedNotes.findIndex(n => n.id === currentNoteId); if (idx !== -1) { savedNotes[idx].title = title; savedNotes[idx].content = content; showToast('Anotacao atualizada!'); } } localStorage.setItem('geekieNotes', JSON.stringify(savedNotes)); renderNotesDropdown(); }
-function deleteNote() { if (currentNoteId === null) { noteTitleInput.value = ''; noteContentInput.value = ''; return; } if (confirm('Excluir esta anotacao permanentemente?')) { savedNotes = savedNotes.filter(n => n.id !== currentNoteId); localStorage.setItem('geekieNotes', JSON.stringify(savedNotes)); currentNoteId = null; noteTitleInput.value = ''; noteContentInput.value = ''; renderNotesDropdown(); showToast('Anotacao excluida!'); } }
-function copyNoteContent() { if (!noteContentInput.value) { showToast('Nada para copiar!', true); return; } navigator.clipboard.writeText(noteContentInput.value).then(() => showToast('Conteudo copiado!')).catch(() => showToast('Erro ao copiar.', true)); }
-async function pasteNoteContent() { try { const text = await navigator.clipboard.readText(); const s = noteContentInput.selectionStart, e = noteContentInput.selectionEnd; noteContentInput.value = noteContentInput.value.substring(0, s) + text + noteContentInput.value.substring(e); showToast('Colado!'); } catch { showToast('Use Ctrl+V para colar.', true); } }
-function exportNote() { if (!noteContentInput.value) { showToast('Nota vazia!', true); return; } const blob = new Blob([noteContentInput.value], { type: 'text/plain;charset=utf-8' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${noteTitleInput.value.trim() || 'Anotacao'}.txt`; a.click(); showToast('Exportado!'); }
-function importNote(event) { const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = e => { currentNoteId = null; noteTitleInput.value = file.name.replace('.txt', ''); noteContentInput.value = e.target.result; document.getElementById('importNoteFile').value = ''; noteSelect.value = 'new'; showToast('Importado! Lembre de salvar.'); }; reader.readAsText(file); }
+function getNoteEls() { return { noteSelect: document.getElementById('noteSelect'), noteTitleInput: document.getElementById('noteTitle'), noteContentInput: document.getElementById('noteContent') }; }
+function renderNotesDropdown() { const {noteSelect} = getNoteEls(); if (!noteSelect) return; noteSelect.innerHTML = '<option value="new">+ Nova Anotacao...</option>'; savedNotes.forEach(note => { const opt = document.createElement('option'); opt.value = note.id; opt.textContent = note.title || 'Nota sem titulo'; if (note.id === currentNoteId) opt.selected = true; noteSelect.appendChild(opt); }); }
+function loadSelectedNote() { const {noteSelect, noteTitleInput, noteContentInput} = getNoteEls(); if (!noteSelect) return; const id = noteSelect.value; if (id === 'new') { currentNoteId = null; noteTitleInput.value = ''; noteContentInput.value = ''; } else { const n = savedNotes.find(n => n.id == id); if (n) { currentNoteId = n.id; noteTitleInput.value = n.title; noteContentInput.value = n.content; } } }
+function saveNote() { const {noteTitleInput, noteContentInput} = getNoteEls(); if (!noteTitleInput) return; const title = noteTitleInput.value.trim() || 'Nota sem titulo'; const content = noteContentInput.value; if (!content.trim() && !noteTitleInput.value.trim()) { showToast('A nota esta vazia!', true); return; } if (currentNoteId === null) { const nn = { id: Date.now().toString(), title, content, date: new Date().toLocaleDateString() }; savedNotes.push(nn); currentNoteId = nn.id; showToast('Nova anotacao salva!'); } else { const idx = savedNotes.findIndex(n => n.id === currentNoteId); if (idx !== -1) { savedNotes[idx].title = title; savedNotes[idx].content = content; showToast('Anotacao atualizada!'); } } localStorage.setItem('geekieNotes', JSON.stringify(savedNotes)); renderNotesDropdown(); }
+function deleteNote() { const {noteTitleInput, noteContentInput} = getNoteEls(); if (!noteTitleInput) return; if (currentNoteId === null) { noteTitleInput.value = ''; noteContentInput.value = ''; return; } if (confirm('Excluir esta anotacao permanentemente?')) { savedNotes = savedNotes.filter(n => n.id !== currentNoteId); localStorage.setItem('geekieNotes', JSON.stringify(savedNotes)); currentNoteId = null; noteTitleInput.value = ''; noteContentInput.value = ''; renderNotesDropdown(); showToast('Anotacao excluida!'); } }
+function copyNoteContent() { const {noteContentInput} = getNoteEls(); if (!noteContentInput || !noteContentInput.value) { showToast('Nada para copiar!', true); return; } navigator.clipboard.writeText(noteContentInput.value).then(() => showToast('Conteudo copiado!')).catch(() => showToast('Erro ao copiar.', true)); }
+async function pasteNoteContent() { const {noteContentInput} = getNoteEls(); if (!noteContentInput) return; try { const text = await navigator.clipboard.readText(); const s = noteContentInput.selectionStart, e = noteContentInput.selectionEnd; noteContentInput.value = noteContentInput.value.substring(0, s) + text + noteContentInput.value.substring(e); showToast('Colado!'); } catch { showToast('Use Ctrl+V para colar.', true); } }
+function exportNote() { const {noteTitleInput, noteContentInput} = getNoteEls(); if (!noteContentInput || !noteContentInput.value) { showToast('Nota vazia!', true); return; } const blob = new Blob([noteContentInput.value], { type: 'text/plain;charset=utf-8' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${noteTitleInput.value.trim() || 'Anotacao'}.txt`; a.click(); showToast('Exportado!'); }
+function importNote(event) { const {noteTitleInput, noteContentInput, noteSelect} = getNoteEls(); const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = e => { currentNoteId = null; if(noteTitleInput) noteTitleInput.value = file.name.replace('.txt', ''); if(noteContentInput) noteContentInput.value = e.target.result; document.getElementById('importNoteFile').value = ''; if(noteSelect) noteSelect.value = 'new'; showToast('Importado! Lembre de salvar.'); }; reader.readAsText(file); }
 renderNotesDropdown();
 
 // ===================== POMODORO =====================
 let timerInterval, timeLeft = 25*60, isTimerRunning = false, isBreak = false, cycles = 0;
-const timerDisplay = document.getElementById('timerDisplay'), timerMode = document.getElementById('timerMode'), btnStartTimer = document.getElementById('btnStartTimer'), alarmSound = document.getElementById('alarmSound'), pomodoroCount = document.getElementById('pomodoroCount');
-function updateTimerDisplay() { timerDisplay.textContent = `${Math.floor(timeLeft/60).toString().padStart(2,'0')}:${(timeLeft%60).toString().padStart(2,'0')}`; document.title = `${timerDisplay.textContent} - ${savedTitle}`; }
-function setCustomTimer(mins) { clearInterval(timerInterval); isTimerRunning = false; isBreak = false; timeLeft = mins * 60; timerMode.textContent = `Modo: Foco (${mins} min)`; timerMode.style.color = 'var(--text-muted)'; btnStartTimer.innerHTML = '<i class="fa-solid fa-play"></i> Iniciar'; updateTimerDisplay(); showToast(`Timer ajustado para ${mins} minutos!`); }
-function startTimer() { if (isTimerRunning) return; isTimerRunning = true; btnStartTimer.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Rodando'; timerInterval = setInterval(() => { timeLeft--; updateTimerDisplay(); if (timeLeft <= 0) { clearInterval(timerInterval); isTimerRunning = false; alarmSound.play(); if (!isBreak) { cycles++; pomodoroCount.textContent = cycles; isBreak = true; timeLeft = 5*60; timerMode.textContent = 'Modo: Pausa Curta (5 min)'; timerMode.style.color = 'var(--accent)'; alert('Foco concluido! Pausa de 5 min.'); } else { isBreak = false; timeLeft = 25*60; timerMode.textContent = 'Modo: Foco (25 min)'; timerMode.style.color = 'var(--text-muted)'; alert('Pausa concluida! Hora de focar.'); } btnStartTimer.innerHTML = '<i class="fa-solid fa-play"></i> Iniciar'; updateTimerDisplay(); } }, 1000); }
-function pauseTimer() { clearInterval(timerInterval); isTimerRunning = false; btnStartTimer.innerHTML = '<i class="fa-solid fa-play"></i> Continuar'; }
-function resetTimer() { clearInterval(timerInterval); isTimerRunning = false; isBreak = false; timeLeft = 25*60; timerMode.textContent = 'Modo: Foco (25 min)'; timerMode.style.color = 'var(--text-muted)'; btnStartTimer.innerHTML = '<i class="fa-solid fa-play"></i> Iniciar'; updateTimerDisplay(); }
+const alarmSound = document.getElementById('alarmSound');
+function getTimerEls() { return { timerDisplay: document.getElementById('timerDisplay'), timerMode: document.getElementById('timerMode'), btnStartTimer: document.getElementById('btnStartTimer'), pomodoroCount: document.getElementById('pomodoroCount') }; }
+function updateTimerDisplay() { const {timerDisplay} = getTimerEls(); if (!timerDisplay) return; const t = `${Math.floor(timeLeft/60).toString().padStart(2,'0')}:${(timeLeft%60).toString().padStart(2,'0')}`; timerDisplay.textContent = t; document.title = `${t} - ${savedTitle}`; }
+function setCustomTimer(mins) { const {timerMode, btnStartTimer} = getTimerEls(); clearInterval(timerInterval); isTimerRunning = false; isBreak = false; timeLeft = mins * 60; if(timerMode) { timerMode.textContent = `Modo: Foco (${mins} min)`; timerMode.style.color = 'var(--text-muted)'; } if(btnStartTimer) btnStartTimer.innerHTML = '<i class="fa-solid fa-play"></i> Iniciar'; updateTimerDisplay(); showToast(`Timer ajustado para ${mins} minutos!`); }
+function startTimer() { const {btnStartTimer, timerMode, pomodoroCount} = getTimerEls(); if (isTimerRunning) return; isTimerRunning = true; if(btnStartTimer) btnStartTimer.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Rodando'; timerInterval = setInterval(() => { timeLeft--; updateTimerDisplay(); if (timeLeft <= 0) { clearInterval(timerInterval); isTimerRunning = false; if(alarmSound) alarmSound.play(); if (!isBreak) { cycles++; if(pomodoroCount) pomodoroCount.textContent = cycles; isBreak = true; timeLeft = 5*60; if(timerMode) { timerMode.textContent = 'Modo: Pausa Curta (5 min)'; timerMode.style.color = 'var(--accent)'; } alert('Foco concluido! Pausa de 5 min.'); } else { isBreak = false; timeLeft = 25*60; if(timerMode) { timerMode.textContent = 'Modo: Foco (25 min)'; timerMode.style.color = 'var(--text-muted)'; } alert('Pausa concluida! Hora de focar.'); } const {btnStartTimer: b2} = getTimerEls(); if(b2) b2.innerHTML = '<i class="fa-solid fa-play"></i> Iniciar'; updateTimerDisplay(); } }, 1000); }
+function pauseTimer() { const {btnStartTimer} = getTimerEls(); clearInterval(timerInterval); isTimerRunning = false; if(btnStartTimer) btnStartTimer.innerHTML = '<i class="fa-solid fa-play"></i> Continuar'; }
+function resetTimer() { const {timerMode, btnStartTimer} = getTimerEls(); clearInterval(timerInterval); isTimerRunning = false; isBreak = false; timeLeft = 25*60; if(timerMode) { timerMode.textContent = 'Modo: Foco (25 min)'; timerMode.style.color = 'var(--text-muted)'; } if(btnStartTimer) btnStartTimer.innerHTML = '<i class="fa-solid fa-play"></i> Iniciar'; updateTimerDisplay(); }
 updateTimerDisplay();
 
 // ===================== GOALS/TODO =====================
-const todoListEl = document.getElementById('todoList');
-let todos = JSON.parse(localStorage.getItem('geekieTodos')) || [];
-let todoFilter = 'all';
 function renderTodos() {
-    todoListEl.innerHTML = '';
+    const todoListEl = document.getElementById('todoList'); if (!todoListEl) return;
     let filtered = todos;
     if (todoFilter === 'pending') filtered = todos.filter(t => !t.completed);
     if (todoFilter === 'done') filtered = todos.filter(t => t.completed);
@@ -762,10 +764,10 @@ renderTodos();
 let flashcardsData = JSON.parse(localStorage.getItem('geekieFlashcards'));
 if (!flashcardsData || !flashcardsData.length) { flashcardsData = [{ front: 'O que e a Mitocondria?', back: 'Organela responsavel pela respiracao celular (energia).' }]; localStorage.setItem('geekieFlashcards', JSON.stringify(flashcardsData)); }
 let currentCardIndex = 0;
-const flashcardEl = document.getElementById('flashcard'), cardFront = document.getElementById('cardFront'), cardBack = document.getElementById('cardBack'), cardCounter = document.getElementById('cardCounter');
+function getFlashEls() { return { flashcardEl: document.getElementById('flashcard'), cardFront: document.getElementById('cardFront'), cardBack: document.getElementById('cardBack'), cardCounter: document.getElementById('cardCounter') }; }
 function saveFlashcards() { localStorage.setItem('geekieFlashcards', JSON.stringify(flashcardsData)); }
-function updateCardDisplay() { flashcardEl.classList.remove('is-flipped'); setTimeout(() => { if (!flashcardsData.length) { cardFront.textContent = 'Nenhum flashcard.'; cardBack.textContent = 'Adicione acima!'; cardCounter.textContent = '0 / 0'; } else { if (currentCardIndex >= flashcardsData.length) currentCardIndex = Math.max(0, flashcardsData.length-1); cardFront.textContent = flashcardsData[currentCardIndex].front; cardBack.textContent = flashcardsData[currentCardIndex].back; cardCounter.textContent = `${currentCardIndex+1} / ${flashcardsData.length}`; } }, 150); }
-function flipCard() { if (flashcardsData.length) flashcardEl.classList.toggle('is-flipped'); }
+function updateCardDisplay() { const {flashcardEl, cardFront, cardBack, cardCounter} = getFlashEls(); if (!flashcardEl) return; flashcardEl.classList.remove('is-flipped'); setTimeout(() => { if (!flashcardsData.length) { cardFront.textContent = 'Nenhum flashcard.'; cardBack.textContent = 'Adicione acima!'; cardCounter.textContent = '0 / 0'; } else { if (currentCardIndex >= flashcardsData.length) currentCardIndex = Math.max(0, flashcardsData.length-1); cardFront.textContent = flashcardsData[currentCardIndex].front; cardBack.textContent = flashcardsData[currentCardIndex].back; cardCounter.textContent = `${currentCardIndex+1} / ${flashcardsData.length}`; } }, 150); }
+function flipCard() { const {flashcardEl} = getFlashEls(); if (flashcardEl && flashcardsData.length) flashcardEl.classList.toggle('is-flipped'); }
 function nextCard() { if (currentCardIndex < flashcardsData.length-1) { currentCardIndex++; updateCardDisplay(); } }
 function prevCard() { if (currentCardIndex > 0) { currentCardIndex--; updateCardDisplay(); } }
 function addFlashcard() { const f = document.getElementById('newCardFront'), b = document.getElementById('newCardBack'); if (f.value.trim() && b.value.trim()) { flashcardsData.push({front:f.value.trim(),back:b.value.trim()}); saveFlashcards(); f.value=''; b.value=''; currentCardIndex=flashcardsData.length-1; updateCardDisplay(); showToast('Flashcard Criado!'); } else alert('Preencha frente e verso!'); }
@@ -803,7 +805,7 @@ function initAmbient() {
 }
 
 function renderAmbientGrid() {
-    const grid = document.getElementById('ambientGrid'); grid.innerHTML = '';
+    const grid = document.getElementById('ambientGrid'); if (!grid) return; grid.innerHTML = '';
     ambientSounds.forEach(s => {
         const isPlaying = ambientAudios[s.id] && !ambientAudios[s.id].paused;
         grid.innerHTML += `<div class="ambient-card ${isPlaying ? 'playing' : ''}" onclick="toggleAmbientSound('${s.id}')" id="ambient-card-${s.id}">
@@ -815,7 +817,7 @@ function renderAmbientGrid() {
 }
 
 function renderAmbientMixer() {
-    const rows = document.getElementById('ambientMixerRows'); rows.innerHTML = '';
+    const rows = document.getElementById('ambientMixerRows'); if (!rows) return; rows.innerHTML = '';
     ambientSounds.forEach(s => {
         const isPlaying = ambientAudios[s.id] && !ambientAudios[s.id].paused;
         const vol = Math.round((ambientVolumes[s.id] || 0.5) * 100);
