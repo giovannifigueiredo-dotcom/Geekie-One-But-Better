@@ -537,6 +537,11 @@ function switchTab(tabId, element) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
     if (window.innerWidth < 768) sidebar.classList.add('collapsed');
+    // Re-render dynamic tabs when opened so they always show current data
+    if (tabId === 'tab-titles') { try { renderTitles(); } catch(e) {} }
+    if (tabId === 'tab-store') { try { renderStore(); } catch(e) {} }
+    if (tabId === 'tab-title') { try { buildTitleUI(); } catch(e) {} }
+    if (tabId === 'tab-events') { try { renderEventContent(); } catch(e) {} }
 }
 
 // ===================== TOAST =====================
@@ -557,6 +562,21 @@ function toggleZenMode() {
     else { sidebar.classList.remove('collapsed'); document.querySelector('.topbar').style.display = 'flex'; if (document.fullscreenElement) document.exitFullscreen(); }
 }
 document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && isZen) toggleZenMode(); });
+
+// ===================== TITLES LIST (must be declared before XP system) =====================
+const titlesList = [
+    { id: 'title-novato',     name: '\ud83c\udf31 Novato',           xpReq: 0,    desc: 'Todo mundo comeca de algum lugar!', reward: null, rewardTheme: null },
+    { id: 'title-estudante',  name: '\ud83d\udcda Estudante',        xpReq: 100,  desc: 'Voce ja esta no caminho certo.', reward: null, rewardTheme: null },
+    { id: 'title-dedicado',   name: '\ud83d\udcaa Dedicado',         xpReq: 300,  desc: 'Persistencia e a chave!', reward: 'Tema Ubuntu Yaru', rewardTheme: 'theme-ubuntu-yaru' },
+    { id: 'title-scholar',    name: '\ud83c\udf93 Scholar',          xpReq: 600,  desc: 'Conhecimento em ascensao.', reward: 'Tema Radiance', rewardTheme: 'theme-ubuntu-radiance' },
+    { id: 'title-mestre',     name: '\u2b50 Mestre',                xpReq: 1000, desc: 'Dominio absoluto.', reward: 'Tema Snap Neon', rewardTheme: 'theme-ubuntu-snap' },
+    { id: 'title-sabio',      name: '\ud83e\uddd9 Sabio',            xpReq: 1500, desc: 'A sabedoria e sua aliada.', reward: 'Tema Frost', rewardTheme: 'theme-ubuntu-frost' },
+    { id: 'title-guru',       name: '\ud83d\udd2e Guru',             xpReq: 2000, desc: 'Iluminacao academica.', reward: 'Tema Fire', rewardTheme: 'theme-ubuntu-fire' },
+    { id: 'title-legend',     name: '\ud83c\udfc6 Lendario',         xpReq: 3000, desc: 'Poucos chegam tao longe!', reward: 'Tema Cosmic', rewardTheme: 'theme-ubuntu-cosmic' },
+    { id: 'title-mythic',     name: '\ud83d\udc51 Mitico',           xpReq: 5000, desc: 'Transcendeu os limites.', reward: 'Tema Sunset + Cosmic', rewardTheme: 'theme-ubuntu-sunset' },
+    { id: 'title-god',        name: '\ud83c\udf1f Divindade',        xpReq: 10000,desc: 'Nada pode pará-lo.', reward: 'TODOS os temas', rewardTheme: 'ALL' },
+];
+let equippedTitle = localStorage.getItem('geekieTitle') || 'title-novato';
 
 // ===================== XP SYSTEM =====================
 let xp = parseInt(localStorage.getItem('geekieXP')) || 0;
@@ -603,21 +623,6 @@ function renderStore() {
 applyTheme(equippedTheme); renderStore();
 
 // ===================== TITLES SYSTEM =====================
-const titlesList = [
-    { id: 'title-novato',     name: '\ud83c\udf31 Novato',           xpReq: 0,    desc: 'Todo mundo comeca de algum lugar!', reward: null, rewardTheme: null },
-    { id: 'title-estudante',  name: '\ud83d\udcda Estudante',        xpReq: 100,  desc: 'Voce ja esta no caminho certo.', reward: null, rewardTheme: null },
-    { id: 'title-dedicado',   name: '\ud83d\udcaa Dedicado',         xpReq: 300,  desc: 'Persistencia e a chave!', reward: 'Tema Ubuntu Yaru', rewardTheme: 'theme-ubuntu-yaru' },
-    { id: 'title-scholar',    name: '\ud83c\udf93 Scholar',          xpReq: 600,  desc: 'Conhecimento em ascensao.', reward: 'Tema Radiance', rewardTheme: 'theme-ubuntu-radiance' },
-    { id: 'title-mestre',     name: '\u2b50 Mestre',                xpReq: 1000, desc: 'Dominio absoluto.', reward: 'Tema Snap Neon', rewardTheme: 'theme-ubuntu-snap' },
-    { id: 'title-sabio',      name: '\ud83e\uddd9 Sabio',            xpReq: 1500, desc: 'A sabedoria e sua aliada.', reward: 'Tema Frost', rewardTheme: 'theme-ubuntu-frost' },
-    { id: 'title-guru',       name: '\ud83d\udd2e Guru',             xpReq: 2000, desc: 'Iluminacao academica.', reward: 'Tema Fire', rewardTheme: 'theme-ubuntu-fire' },
-    { id: 'title-legend',     name: '\ud83c\udfc6 Lendario',         xpReq: 3000, desc: 'Poucos chegam tao longe!', reward: 'Tema Cosmic', rewardTheme: 'theme-ubuntu-cosmic' },
-    { id: 'title-mythic',     name: '\ud83d\udc51 Mitico',           xpReq: 5000, desc: 'Transcendeu os limites.', reward: 'Tema Sunset + Cosmic', rewardTheme: 'theme-ubuntu-sunset' },
-    { id: 'title-god',        name: '\ud83c\udf1f Divindade',        xpReq: 10000,desc: 'Nada pode pará-lo.', reward: 'TODOS os temas', rewardTheme: 'ALL' },
-];
-
-let equippedTitle = localStorage.getItem('geekieTitle') || 'title-novato';
-
 function getHighestTitle() {
     let highest = titlesList[0];
     for (const t of titlesList) { if (xp >= t.xpReq) highest = t; }
@@ -650,7 +655,7 @@ function equipTitle(titleId) {
 
 function renderTitles() {
     const grid = document.getElementById('titlesGrid'); if (!grid) return; grid.innerHTML = '';
-    document.getElementById('titlesXpDisplay').textContent = xp;
+    const xpDisp = document.getElementById('titlesXpDisplay'); if (xpDisp) xpDisp.textContent = xp;
     titlesList.forEach(t => {
         const unlocked = xp >= t.xpReq;
         const isEquipped = equippedTitle === t.id;
@@ -919,7 +924,7 @@ let selectedFont = localStorage.getItem('geekieTitleFont') || 'Poppins';
 let selectedIcon = localStorage.getItem('geekieTitleIcon') || 'fa-graduation-cap';
 let savedTitle = localStorage.getItem('geekieTitleName') || 'Geekie One Ultra v9.0';
 function buildTitleUI() {
-    const fontGrid = document.getElementById('fontGrid'), iconGrid = document.getElementById('iconGrid'); fontGrid.innerHTML = ''; iconGrid.innerHTML = '';
+    const fontGrid = document.getElementById('fontGrid'), iconGrid = document.getElementById('iconGrid'); if (!fontGrid || !iconGrid) return; fontGrid.innerHTML = ''; iconGrid.innerHTML = '';
     availableFonts.forEach(f => { const el = document.createElement('div'); el.className = `font-option ${selectedFont === f.family ? 'selected' : ''}`; el.style.fontFamily = f.family; el.innerHTML = `<div style="font-size:1.1rem;font-weight:700;">${f.sample}</div><div class="font-name">${f.label}</div>`; el.onclick = () => { selectedFont = f.family; buildTitleUI(); updateTitlePreview(); }; fontGrid.appendChild(el); });
     availableIcons.forEach(ic => { const el = document.createElement('div'); el.className = `icon-option ${selectedIcon === ic ? 'selected' : ''}`; el.innerHTML = `<i class="fa-solid ${ic}"></i>`; el.onclick = () => { selectedIcon = ic; buildTitleUI(); updateTitlePreview(); }; iconGrid.appendChild(el); });
     document.getElementById('pageTitleInput').value = savedTitle; updateTitlePreview();
